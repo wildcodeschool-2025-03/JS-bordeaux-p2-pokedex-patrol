@@ -1,11 +1,18 @@
 import "./App.css";
+import { Outlet, useNavigate } from "react-router";
 
 function App() {
-	const name = "toto";
-	const text = "Welcome";
+	const navigate = useNavigate();
+
+	function handleClick() {
+		navigate("/game");
+	}
 	return (
 		<>
-			{text} {name}
+			<button onClick={handleClick} type="button">
+				Jouer
+			</button>
+			<Outlet />
 		</>
 	);
 }
