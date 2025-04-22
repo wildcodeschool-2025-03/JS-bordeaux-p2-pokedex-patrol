@@ -23,10 +23,6 @@ const router = createBrowserRouter([
 	},
 ]);
 
-// createRoot(document.getElementById("root")!).render(
-// 	<RouterProvider router={router} />,
-// );
-
 const rootElement = document.getElementById("root");
 
 if (rootElement != null) {
