@@ -1,10 +1,6 @@
 import "./Game.css";
 
 function Game() {
-	return (
-		<>
-			<p>pour kev??!!!!???</p>
-		</>
-	);
+	return <></>;
 }
 export default Game;
