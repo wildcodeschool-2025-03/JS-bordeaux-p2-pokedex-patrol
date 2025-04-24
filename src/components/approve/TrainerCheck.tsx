@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
-import ResultScreen from "../endscreen/ResultScreen";
+import { useRef, useState } from "react";
 import Buttons from "../button/Buttons";
+import ResultScreen from "../endscreen/ResultScreen";
 
 interface Trainer {
 	name: string;
