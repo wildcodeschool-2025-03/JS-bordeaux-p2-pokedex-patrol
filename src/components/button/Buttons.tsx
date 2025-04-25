@@ -8,10 +8,10 @@ interface ButtonProps {
 function Buttons({ onApprove, onDeny }: ButtonProps) {
 	return (
 		<>
-			<button type="button" className="btnApprove" onClick={onApprove}>
+			<button type="button" className="btn Approve" onClick={onApprove}>
 				Approuver
 			</button>
-			<button type="button" className="btnDeny" onClick={onDeny}>
+			<button type="button" className="btn Deny" onClick={onDeny}>
 				Refuser
 			</button>
 		</>

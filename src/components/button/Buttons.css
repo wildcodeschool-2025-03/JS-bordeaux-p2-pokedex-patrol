@@ -1,4 +1,4 @@
-button {
+.btn {
 	color: white;
 	font-size: 16px;
 	font-weight: bold;
@@ -8,6 +8,7 @@ button {
 	transition: 0.1s ease;
 	border-width: 0;
 	box-shadow: 1px 5px 0 0 #0e285d;
+	margin-left: 1em;
 }
 
 button:hover {
@@ -20,12 +21,10 @@ button:active {
 	box-shadow: 0px 0px 0 0 #0e285d;
 }
 
-.btnApprove {
+.btn.Approve {
 	background-color: var(--btn-approve-color);
-	margin-left: 1em;
 }
 
-.btnDeny {
+.btn.Deny {
 	background-color: var(--btn-deny-color);
-	margin-left: 1em;
 }
