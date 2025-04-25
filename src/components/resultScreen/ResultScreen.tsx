@@ -19,7 +19,7 @@ function ResultScreen({
 	trainers,
 }: ResultScreenProps) {
 	return (
-		<section>
+		<section id="resultScreen">
 			<div>
 				<h2>Fin du niveau</h2>
 				<p>

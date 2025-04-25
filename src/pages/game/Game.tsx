@@ -1,4 +1,4 @@
-import TrainerCheck from "../../components/approve/TrainerCheck";
+import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import "./Game.css";
 
 function Game() {

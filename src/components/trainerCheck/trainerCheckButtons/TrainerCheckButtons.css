@@ -1,4 +1,4 @@
-.btn {
+#trainerButtons .btn {
 	color: white;
 	font-size: 16px;
 	font-weight: bold;
@@ -11,20 +11,20 @@
 	margin-left: 1em;
 }
 
-button:hover {
+#trainerButtons button:hover {
 	transform: translateY(-4px);
 	box-shadow: 1px 9px 0 0 #0e285d;
 }
 
-button:active {
+#trainerButtons button:active {
 	transform: translateY(4px);
 	box-shadow: 0px 0px 0 0 #0e285d;
 }
 
-.btn.Approve {
+#trainerButtons .btn.Approve {
 	background-color: var(--btn-approve-color);
 }
 
-.btn.Deny {
+#trainerButtons .btn.Deny {
 	background-color: var(--btn-deny-color);
 }

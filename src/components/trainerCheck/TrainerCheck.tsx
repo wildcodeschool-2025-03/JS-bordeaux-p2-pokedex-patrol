@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import Buttons from "../button/Buttons";
-import ResultScreen from "../endscreen/ResultScreen";
+import Buttons from "./trainerCheckButtons/TrainerCheckButtons";
+import ResultScreen from "../resultScreen/ResultScreen";
 
 function TrainerCheck() {
 	const trainers = [

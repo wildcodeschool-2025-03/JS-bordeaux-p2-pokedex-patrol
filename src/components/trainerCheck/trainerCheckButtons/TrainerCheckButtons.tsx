@@ -1,4 +1,4 @@
-import "./Buttons.css";
+import "./TrainerCheckButtons.css";
 
 interface ButtonProps {
 	onApprove: React.MouseEventHandler<HTMLButtonElement>;
@@ -7,14 +7,14 @@ interface ButtonProps {
 
 function Buttons({ onApprove, onDeny }: ButtonProps) {
 	return (
-		<>
+		<div id="trainerButtons">
 			<button type="button" className="btn Approve" onClick={onApprove}>
 				Approuver
 			</button>
 			<button type="button" className="btn Deny" onClick={onDeny}>
 				Refuser
 			</button>
-		</>
+		</div>
 	);
 }
 
