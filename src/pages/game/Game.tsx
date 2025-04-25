@@ -1,6 +1,11 @@
+import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import "./Game.css";
 
 function Game() {
-	return <></>;
+	return (
+		<>
+			<TrainerCheck />
+		</>
+	);
 }
 export default Game;
