@@ -1,6 +1,10 @@
 import "./Game.css";
 
 function Game() {
-	return <></>;
+    return (
+        <>
+            <div className="gamescreen"> </div>
+        </>
+    );
 }
 export default Game;

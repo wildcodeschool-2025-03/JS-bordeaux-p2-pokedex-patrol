@@ -1,3 +1,9 @@
-p {
-	font-size: var(--font-p-size);
+.gamescreen {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("src/assets/images/hud/desk_forest_jade.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: black;
 }
