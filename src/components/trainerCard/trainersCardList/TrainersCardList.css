@@ -1,0 +1,25 @@
+.trainer-card {
+	width: 70vw;
+	height: 40vw;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	border-radius: 16px;
+	margin: 2rem auto;
+	display: flex;
+	align-items: flex-end;
+	color: white;
+	font-weight: bold;
+}
+.region_hoenn {
+	background-image: url("src/assets/images/trainerCard/trainer_card_hoenn.svg");
+}
+.region_kanto {
+	background-image: url("src/assets/images/trainerCard/trainer_card_kanto.svg");
+}
+.region_sinnoh {
+	background-image: url("src/assets/images/trainerCard/trainer_card_sinnoh.svg");
+}
+.region_unys {
+	background-image: url("src/assets/images/trainerCard/trainer_card_unys.svg");
+}
