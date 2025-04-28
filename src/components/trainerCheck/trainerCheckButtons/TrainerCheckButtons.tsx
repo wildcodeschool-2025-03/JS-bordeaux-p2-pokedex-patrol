@@ -5,7 +5,7 @@ interface ButtonProps {
 	onDeny: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-function Buttons({ onApprove, onDeny }: ButtonProps) {
+function TrainerCheckButtons({ onApprove, onDeny }: ButtonProps) {
 	return (
 		<div id="trainerButtons">
 			<button type="button" className="btn Approve" onClick={onApprove}>
@@ -18,4 +18,4 @@ function Buttons({ onApprove, onDeny }: ButtonProps) {
 	);
 }
 
-export default Buttons;
+export default TrainerCheckButtons;
