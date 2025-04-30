@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import ResultScreen from "../resultScreen/ResultScreen";
-import Buttons from "./trainerCheckButtons/TrainerCheckButtons";
+import TrainerCheckButtons from "./trainerCheckButtons/TrainerCheckButtons";
 
 function TrainerCheck() {
 	const trainers = [
@@ -58,7 +58,7 @@ function TrainerCheck() {
 				/>
 			) : (
 				<>
-					<Buttons
+					<TrainerCheckButtons
 						onApprove={() => handleTrainerCheck(true)}
 						onDeny={() => handleTrainerCheck(false)}
 					/>
