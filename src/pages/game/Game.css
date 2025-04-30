@@ -1,9 +1,11 @@
-.gamescreen {
-	width: 100vw;
-	height: 100vh;
-	background-image: url("src/assets/images/hud/desk_forest_jade.svg");
-	background-position: center;
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-color: black;
+.notebook-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 999;
+}
+
+.game-container {
+  width: 100%;
+  height: 100vh;
 }
