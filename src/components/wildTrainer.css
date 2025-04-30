@@ -1,0 +1,19 @@
+img {
+	width: 300px;
+}
+
+.chatBox {
+	display: grid;
+}
+
+.chatBox img {
+	grid-area: 1 / 1;
+}
+
+.textOnImage {
+	grid-area: 1 / 1;
+	color: black;
+	font-size: 13px;
+	font-weight: bold;
+	margin-left: 24px;
+}
