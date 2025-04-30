@@ -36,7 +36,11 @@ function Game() {
 
 	return (
 		<div className="game-container">
-			<Notebook isOpen={isNotebookOpen} onToggle={toggleNotebook} notebookRef={notebookRef} />
+			<Notebook
+				isOpen={isNotebookOpen}
+				onToggle={toggleNotebook}
+				notebookRef={notebookRef}
+			/>
 			<CarouselOverlay
 				isOpen={isNotebookOpen}
 				notebookRect={notebookRect}
