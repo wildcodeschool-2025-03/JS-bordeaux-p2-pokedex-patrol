@@ -1,131 +1,125 @@
-import { useState } from "react";
 import "./TrainersCardList.css";
-import Buttons from "../../trainerCheck/trainerCheckButtons/TrainerCheckButtons";
 import TrainerCardItem from "./trainersCardItem/TrainerCardItem";
 
-function TrainerCardList() {
+function TrainerCardList({ onClick, currentIndex }) {
 	const trainersCardList = [
 		{
 			id: 1,
 			trainerName: "Sasha",
-			trainerImgCrop: "src/assets/images/trainerCard/trainer_card_sinnoh.svg",
+			trainerImgCrop: "src/assets/images/trainerCrop/ash_crop.svg",
 			trainerRegion: "sinnoh",
 			trainerBadges: [
-				{ imgBadge: "badge_feu.svg" },
-				{ imgBadge: "badge_fleur.svg" },
-				{ imgBadge: "badge_pierre.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_fire.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_flower.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_stone.svg" },
 			],
 		},
 		{
 			id: 2,
-			trainerName: "Ondine",
-			trainerImgCrop: "src/assets/images/trainerCard/trainer_card_kanto.svg",
+			trainerName: "Jongleur",
+			trainerImgCrop: "src/assets/images/trainerCrop/juggler_crop.svg",
 			trainerRegion: "kanto",
 			trainerBadges: [
-				{ imgBadge: "badge_eau.svg" },
-				{ imgBadge: "badge_coeur.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_water.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_heart.svg" },
 			],
 		},
 		{
 			id: 3,
-			trainerName: "Pierre",
-			trainerImgCrop: "src/assets/images/trainerCard/trainer_card_kanto.svg",
+			trainerName: "Pokemaniac",
+			trainerImgCrop: "src/assets/images/trainerCrop/pokemaniac_crop.svg",
 			trainerRegion: "kanto",
 			trainerBadges: [
-				{ imgBadge: "badge_pierre.svg" },
-				{ imgBadge: "badge_feu.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_stone.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_fire.svg" },
 			],
 		},
 		{
 			id: 4,
-			trainerName: "Germain",
-			trainerImgCrop: "src/assets/images/trainerCard/trainer_card_unys.svg",
+			trainerName: "Motard",
+			trainerImgCrop: "src/assets/images/trainerCrop/biker_crop.svg",
 			trainerRegion: "unys",
 			trainerBadges: [
-				{ imgBadge: "badge_piece.svg" },
-				{ imgBadge: "badge_coeur.svg" },
-				{ imgBadge: "badge_fleur.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_coin.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_heart.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_flower.svg" },
 			],
 		},
 		{
 			id: 5,
-			trainerName: "Louka",
-			trainerImgCrop: "src/assets/images/trainerCard/trainer_card_sinnoh.svg",
+			trainerName: "Chen",
+			trainerImgCrop: "src/assets/images/trainerCrop/chen_crop.svg",
 			trainerRegion: "sinnoh",
 			trainerBadges: [
-				{ imgBadge: "badge_eau.svg" },
-				{ imgBadge: "badge_pierre.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_water.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_stone.svg" },
 			],
 		},
 		{
 			id: 6,
-			trainerName: "Amaryllis",
-			trainerImgCrop: "src/assets/images/trainerCard/trainer_card_hoenn.svg",
+			trainerName: "Cameraman",
+			trainerImgCrop: "src/assets/images/trainerCrop/cameraman_crop.svg",
 			trainerRegion: "hoenn",
 			trainerBadges: [
-				{ imgBadge: "badge_fleur.svg" },
-				{ imgBadge: "badge_feu.svg" },
-				{ imgBadge: "badge_piece.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_flower.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_fire.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_coin.svg" },
 			],
 		},
 		{
 			id: 7,
-			trainerName: "Dario",
-			trainerImgCrop: "src/assets/images/trainerCard/trainer_card_unys.svg",
+			trainerName: "Clair",
+			trainerImgCrop: "src/assets/images/trainerCrop/clair_crop.svg",
 			trainerRegion: "unys",
 			trainerBadges: [
-				{ imgBadge: "badge_coeur.svg" },
-				{ imgBadge: "badge_eau.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_heart.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_water.svg" },
 			],
 		},
 		{
 			id: 8,
-			trainerName: "Gloria",
-			trainerImgCrop: "src/assets/images/trainerCard/trainer_card_sinnoh.svg",
+			trainerName: "Cambrioleur",
+			trainerImgCrop: "src/assets/images/trainerCrop/burglar_crop.svg",
 			trainerRegion: "sinnoh",
 			trainerBadges: [
-				{ imgBadge: "badge_fleur.svg" },
-				{ imgBadge: "badge_pierre.svg" },
-				{ imgBadge: "badge_coeur.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_flower.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_stone.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_heart.svg" },
 			],
 		},
 		{
 			id: 9,
-			trainerName: "Bastien",
-			trainerImgCrop: "src/assets/images/trainerCard/trainer_card_hoenn.svg",
+			trainerName: "Attrapeur",
+			trainerImgCrop: "src/assets/images/trainerCrop/catcher_crop.svg",
 			trainerRegion: "hoenn",
 			trainerBadges: [
-				{ imgBadge: "badge_eau.svg" },
-				{ imgBadge: "badge_piece.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_water.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_coin.svg" },
 			],
 		},
 		{
 			id: 10,
-			trainerName: "Nina",
-			trainerImgCrop: "src/assets/images/trainerCard/trainer_card_kanto.svg",
+			trainerName: "Psychique",
+			trainerImgCrop: "src/assets/images/trainerCrop/psychic_crop.svg",
 			trainerRegion: "kanto",
 			trainerBadges: [
-				{ imgBadge: "badge_feu.svg" },
-				{ imgBadge: "badge_coeur.svg" },
-				{ imgBadge: "badge_fleur.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_fire.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_heart.svg" },
+				{ imgBadge: "src/assets/images/badges/badge_flower.svg" },
 			],
 		},
 	];
-	const [currentIndex, setCurrentIndex] = useState(0);
-
-	const handleNext = () => {
-		if (currentIndex < trainersCardList.length - 1) {
-			setCurrentIndex(currentIndex + 1);
-		}
-	};
-
 	return (
-		<div>
+		<div
+			className="trainer-card"
+			onClick={onClick}
+			onKeyDown={(e) => {
+				if (e.key === "Enter" || e.key === " ") {
+					onClick();
+				}
+			}}
+		>
 			<TrainerCardItem trainerCard={trainersCardList[currentIndex]} />
-			<Buttons
-				onApprove={() => handleNext(true)}
-				onDeny={() => handleNext(false)}
-			/>
 		</div>
 	);
 }
