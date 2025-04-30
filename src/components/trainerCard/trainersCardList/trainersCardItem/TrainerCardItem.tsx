@@ -13,7 +13,7 @@ function TrainerCardItem({ trainerCard }) {
 				{trainerCard.trainerBadges.map((badge, key) => (
 					<img
 						className="trainer-badge"
-						key={key}
+						key={badge.imgBadge}
 						src={badge.imgBadge}
 						alt="badge"
 					/>
