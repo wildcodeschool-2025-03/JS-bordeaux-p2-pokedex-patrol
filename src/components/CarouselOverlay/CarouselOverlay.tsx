@@ -1,26 +1,26 @@
+import { useState } from "react";
 import "./CarouselOverlay.css";
 interface CarouselOverlayProps {
-	isOpen: boolean;
 	cardSvgs: string[];
 	cardNames: string[];
-	carouselIndex: number;
-	onNext: (e: React.MouseEvent) => void;
-	onPrev: (e: React.MouseEvent) => void;
 }
 
-function CarouselOverlay({
-	isOpen,
-	cardSvgs,
-	cardNames,
-	carouselIndex,
-	onNext,
-	onPrev,
-}: CarouselOverlayProps) {
-	if (!isOpen) return null;
+function CarouselOverlay({ cardSvgs, cardNames }: CarouselOverlayProps) {
+	const [carouselIndex, setCarouselIndex] = useState(0);
+
+	const nextCard = (e: React.MouseEvent) => {
+		e.stopPropagation();
+		setCarouselIndex((prev) => (prev + 1) % cardSvgs.length);
+	};
+
+	const prevCard = (e: React.MouseEvent) => {
+		e.stopPropagation();
+		setCarouselIndex((prev) => (prev - 1 + cardSvgs.length) % cardSvgs.length);
+	};
 
 	return (
 		<div className="notebook-carousel-overlay">
-			<button type="button" className="carousel-arrow left" onClick={onPrev}>
+			<button type="button" className="carousel-arrow left" onClick={prevCard}>
 				&lt;
 			</button>
 			<div className="carousel-content">
@@ -43,7 +43,7 @@ function CarouselOverlay({
 					/>
 				</div>
 			</div>
-			<button type="button" className="carousel-arrow right" onClick={onNext}>
+			<button type="button" className="carousel-arrow right" onClick={nextCard}>
 				&gt;
 			</button>
 		</div>

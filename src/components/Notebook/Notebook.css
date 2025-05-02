@@ -18,8 +18,11 @@
 	background-image: url("../../assets/images/verif/carnet_bleu_ouvert.svg");
 	width: 950px;
 	height: 950px;
+	position: relative;
+	top: 30px;
+	left: -5px;
 }
 
-.notebook-button:hover {
+.notebook-button.closed:hover {
 	transform: scale(1.1);
 }
