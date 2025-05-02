@@ -58,8 +58,6 @@ function TrainerCheck() {
 				/>
 			) : (
 				<>
-					<h2>Dresseur</h2>
-					<h3>{trainers[currentTrainer]?.name}</h3>
 					<TrainerCheckButtons
 						onApprove={() => handleTrainerCheck(true)}
 						onDeny={() => handleTrainerCheck(false)}
