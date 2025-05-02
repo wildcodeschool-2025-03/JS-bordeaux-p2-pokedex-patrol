@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import "./Game.css";
 
@@ -12,36 +12,36 @@ function Game() {
 	return (
 		<>
 			<div className="hud_pokedexpatrol">
-				<div className="gamewindow">
+				<div className="game_window">
 					<img
-						className="pkmn1"
+						id="pkmn1"
 						src="src/assets/images/test_img/test_pkmn1.svg"
 						alt="pkmn1 pour test"
 					/>
 					<img
-						className="pkmn2"
+						id="pkmn2"
 						src="src/assets/images/test_img/test_pkmn2.svg"
 						alt="pkmn2 pour test"
 					/>
 					<img
-						className="pkmn3"
+						id="pkmn3"
 						src="src/assets/images/test_img/test_pkmn3.svg"
 						alt="pkmn3 pour test"
 					/>
 					<img
-						className="trainer"
+						id="trainer"
 						src="src/assets/images/test_img/test_trainer.svg"
 						alt="trainer pour test"
 					/>
 					<img
-						className="windowsill"
+						id="window_sill"
 						src="src/assets/images/hud/game_window.svg"
 						alt="fenêtre de jeu"
 					/>
 				</div>
 
-				<div className="gamedesk">
-					<div className="temoinofficiel">
+				<div className="game_desk">
+					<div className="official_witness">
 						<img
 							src="src/assets/images/test_img/test_temoin.svg"
 							alt="Le témoin officiel de tous les pokedexpatrolleurs"
@@ -57,10 +57,10 @@ function Game() {
 							onKeyDown={(e) => e.key === "a" && handleClick()}
 						/>
 					</div>
-					<div className="trainercheck">
+					<div className="trainer_check">
 						<TrainerCheck />
 					</div>
-					<div className="pokeballtrainer">
+					<div className="pokeball_trainer">
 						<img
 							src="src/assets/images/test_img/test_pokeball.svg"
 							alt="Ceci est la pokéball du dresseur qui se présente au péage"
@@ -68,7 +68,7 @@ function Game() {
 							onKeyDown={(e) => e.key === "a" && handleClick()}
 						/>
 					</div>
-					<div className="idtrainer">
+					<div className="id_trainer">
 						<img
 							src="src/assets/images/test_img/test_permistrainer.svg"
 							alt="Ceci est le permis du dresseur qui se présente au péage"
@@ -80,7 +80,7 @@ function Game() {
 			</div>
 
 			{activeImage && (
-				<div className="information-box">
+				<div className="information_box">
 					<p>Information à venir</p>
 				</div>
 			)}
