@@ -12,6 +12,12 @@
 	--font-p-size: 22px;
 }
 
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
 @font-face {
 	font-family: "PokemonClassic";
 	src: url("./assets/font/PokemonClassic.ttf");
