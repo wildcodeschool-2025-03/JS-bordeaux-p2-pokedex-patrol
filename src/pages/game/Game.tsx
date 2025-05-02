@@ -1,3 +1,4 @@
+import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import "./Game.css";
 import { useEffect, useState } from "react";
 import {
@@ -33,6 +34,7 @@ function Game() {
 				Prochain dresseur !
 			</button>
 			<div>{selectedTrainer}</div>
+			<TrainerCheck />
 		</div>
 	);
 }
