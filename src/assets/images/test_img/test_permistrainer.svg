@@ -1,0 +1,21 @@
+<svg width="140" height="110" viewBox="0 0 140 110" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g filter="url(#filter0_d_153_102)">
+<rect x="4" width="132" height="102" fill="url(#pattern0_153_102)" shape-rendering="crispEdges"/>
+</g>
+<defs>
+<filter id="filter0_d_153_102" x="0" y="0" width="140" height="110" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_153_102"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_153_102" result="shape"/>
+</filter>
+<pattern id="pattern0_153_102" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0_153_102" transform="matrix(0.0471117 0 0 0.0609681 -0.265152 -0.480392)"/>
+</pattern>
+<image id="image0_153_102" width="32" height="32" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAABKElEQVRYCe1VsRHCMAwUHIPYo1BTZo100MEGZAQYgS4ZATpYgVSwAZQhMkjx5RwsE3dYd44UW9a/3z4bIFlSICnw7wpMYgqglGqoXl3XotqiJCrq8jboNas5RR8USEjMeEZAMAQaUIJTxQqIQOdbgMWKi2utvSp8VeAXUEYfGyB4U24bY+iX0DXqf492Xzuv7bUXEMzHEJCAEjzmEjH0n3g8CQLweSSA1vM+AtNQafanJ+jN3TSM2fAAVgVA0V4F6GOY2Yb3uhq1vpm2Oz4+PQ5HW0ZbQXOtCyqYl02CIJGEiFA7oSzPEQ4jrUSiggWK5H1nwKuISwFSwva00iigfVZDJGKAfr0J+0Twv6oukOcZD0keHE52BD+9BWNBHTxSV1IgKfDHCrwAEpLfpdx2rR4AAAAASUVORK5CYII="/>
+</defs>
+</svg>

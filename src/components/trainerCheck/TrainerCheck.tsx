@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import Buttons from "./trainerCheckButtons/TrainerCheckButtons";
 import ResultScreen from "../resultScreen/ResultScreen";
+import TrainerCheckButtons from "./trainerCheckButtons/TrainerCheckButtons";
 
 function TrainerCheck() {
 	const trainers = [
@@ -58,9 +58,7 @@ function TrainerCheck() {
 				/>
 			) : (
 				<>
-					<h2>Dresseur</h2>
-					<h3>{trainers[currentTrainer]?.name}</h3>
-					<Buttons
+					<TrainerCheckButtons
 						onApprove={() => handleTrainerCheck(true)}
 						onDeny={() => handleTrainerCheck(false)}
 					/>
