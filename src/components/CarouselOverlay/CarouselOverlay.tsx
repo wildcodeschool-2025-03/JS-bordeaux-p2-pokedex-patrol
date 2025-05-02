@@ -1,9 +1,6 @@
-// components/CarouselOverlay/CarouselOverlay.tsx
 import "./CarouselOverlay.css";
-
 interface CarouselOverlayProps {
 	isOpen: boolean;
-	notebookRect: DOMRect | null;
 	cardSvgs: string[];
 	cardNames: string[];
 	carouselIndex: number;
@@ -13,32 +10,16 @@ interface CarouselOverlayProps {
 
 function CarouselOverlay({
 	isOpen,
-	notebookRect,
 	cardSvgs,
 	cardNames,
 	carouselIndex,
 	onNext,
 	onPrev,
 }: CarouselOverlayProps) {
-	const overlayStyle =
-		notebookRect && isOpen
-			? {
-					position: "fixed" as const,
-					top: notebookRect.top,
-					left: notebookRect.left,
-					width: notebookRect.width,
-					height: notebookRect.height,
-					display: "flex",
-					justifyContent: "center",
-					alignItems: "center",
-					zIndex: 1000,
-				}
-			: {};
-
 	if (!isOpen) return null;
 
 	return (
-		<div className="notebook-carousel-overlay" style={overlayStyle}>
+		<div className="notebook-carousel-overlay">
 			<button type="button" className="carousel-arrow left" onClick={onPrev}>
 				&lt;
 			</button>

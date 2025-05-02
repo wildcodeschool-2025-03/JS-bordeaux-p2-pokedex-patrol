@@ -1,5 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
-
+import {useRef, useState } from "react";
 import hoennCard from "../../assets/images/verif/carte_dresseur_hoenn.svg";
 import kantoCard from "../../assets/images/verif/carte_dresseur_kanto.svg";
 import sinnohCard from "../../assets/images/verif/carte_dresseur_sinnoh.svg";
@@ -15,14 +14,7 @@ const cardNames = ["Hoenn", "Kanto", "Sinnoh", "Unys"];
 function Game() {
 	const [isNotebookOpen, setIsNotebookOpen] = useState(false);
 	const [carouselIndex, setCarouselIndex] = useState(0);
-	const [notebookRect, setNotebookRect] = useState<DOMRect | null>(null);
 	const notebookRef = useRef<HTMLButtonElement>(null);
-
-	useLayoutEffect(() => {
-		if (isNotebookOpen && notebookRef.current) {
-			setNotebookRect(notebookRef.current.getBoundingClientRect());
-		}
-	}, [isNotebookOpen]);
 
 	const toggleNotebook = () => setIsNotebookOpen((prev) => !prev);
 	const nextCard = (e: React.MouseEvent) => {
@@ -43,7 +35,6 @@ function Game() {
 			/>
 			<CarouselOverlay
 				isOpen={isNotebookOpen}
-				notebookRect={notebookRect}
 				cardSvgs={cardSvgs}
 				cardNames={cardNames}
 				carouselIndex={carouselIndex}
