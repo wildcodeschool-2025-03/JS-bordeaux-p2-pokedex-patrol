@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import ResultScreen from "../resultScreen/ResultScreen";
-import Buttons from "./trainerCheckButtons/TrainerCheckButtons";
+import TrainerCheckButtons from "./trainerCheckButtons/TrainerCheckButtons";
 
-function TrainerCheck() {
+function TrainerCheck({ onApprove, onDeny }) {
 	const trainers = [
 		{ name: "dresseur1", isTrainerLegitimate: true },
 		{ name: "dresseur2", isTrainerLegitimate: true },
@@ -15,7 +15,6 @@ function TrainerCheck() {
 		{ name: "dresseur9", isTrainerLegitimate: true },
 		{ name: "dresseur10", isTrainerLegitimate: true },
 	];
-
 	const [currentTrainer, setCurrentTrainer] = useState(0);
 	const [score, setScore] = useState(0);
 	const [isGameOver, setIsGameOver] = useState(false);
@@ -58,9 +57,15 @@ function TrainerCheck() {
 				/>
 			) : (
 				<>
-					<Buttons
-						onApprove={() => handleTrainerCheck(true)}
-						onDeny={() => handleTrainerCheck(false)}
+					<TrainerCheckButtons
+						onApprove={() => {
+							handleTrainerCheck(true);
+							onApprove(true);
+						}}
+						onDeny={() => {
+							handleTrainerCheck(false);
+							onDeny(false);
+						}}
 					/>
 				</>
 			)}

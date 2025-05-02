@@ -1,11 +1,11 @@
 function TrainerCardIcon({ onClick }) {
 	return (
-		<button type="button" onClick={onClick}>
-			<img
-				src="src/assets/images/trainerCard/trainer_card.svg"
-				alt="trainer card"
-			/>
-		</button>
+		<img
+			src="src/assets/images/trainerCard/trainer_card.svg"
+			alt="trainer card"
+			onClick={onClick}
+			onKeyDown={(e) => e.key === "Enter" && handleClick()}
+		/>
 	);
 }
 
