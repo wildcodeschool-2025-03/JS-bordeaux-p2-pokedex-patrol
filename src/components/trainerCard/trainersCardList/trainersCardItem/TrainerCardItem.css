@@ -1,3 +1,7 @@
+.modal_overlay img {
+	filter: none !important;
+}
+
 .modal_overlay {
 	position: fixed;
 	top: 0;
