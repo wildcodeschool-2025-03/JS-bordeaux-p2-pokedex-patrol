@@ -8,6 +8,8 @@ function Game() {
 	const [showTrainerCard, setShowTrainerCard] = useState(false);
 	const [activeImage, setActiveImage] = useState(false);
 	const [currentIndex, setCurrentIndex] = useState(0);
+	const [currentTrainer, setCurrentTrainer] = useState(0);
+	const [totalTrainers, setTotalTrainers] = useState(0);
 
 	const handleClick = () => {
 		setActiveImage(true);
@@ -49,6 +51,9 @@ function Game() {
 						src="src/assets/images/hud/game_window.svg"
 						alt="fenêtre de jeu"
 					/>
+					<p id="counter">
+						{currentTrainer + 1} / {totalTrainers}
+					</p>
 				</div>
 
 				<div className="game_desk">
@@ -70,8 +75,11 @@ function Game() {
 					</div>
 					<div className="trainer_check">
 						<TrainerCheck
+							currentTrainer={currentTrainer}
+							setCurrentTrainer={setCurrentTrainer}
 							onApprove={() => handleNext(true)}
 							onDeny={() => handleNext(false)}
+							onSetTotalTrainers={setTotalTrainers}
 						/>
 					</div>
 					<div className="pokeball_trainer">

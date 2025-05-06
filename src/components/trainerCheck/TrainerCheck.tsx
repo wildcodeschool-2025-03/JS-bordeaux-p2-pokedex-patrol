@@ -1,8 +1,14 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import ResultScreen from "../resultScreen/ResultScreen";
 import TrainerCheckButtons from "./trainerCheckButtons/TrainerCheckButtons";
 
-function TrainerCheck({ onApprove, onDeny }) {
+function TrainerCheck({
+	onApprove,
+	onDeny,
+	currentTrainer,
+	setCurrentTrainer,
+	onSetTotalTrainers,
+}) {
 	const trainers = [
 		{ name: "dresseur1", isTrainerLegitimate: true },
 		{ name: "dresseur2", isTrainerLegitimate: true },
@@ -15,7 +21,9 @@ function TrainerCheck({ onApprove, onDeny }) {
 		{ name: "dresseur9", isTrainerLegitimate: true },
 		{ name: "dresseur10", isTrainerLegitimate: true },
 	];
-	const [currentTrainer, setCurrentTrainer] = useState(0);
+	useEffect(() => {
+		onSetTotalTrainers(trainers.length);
+	}, [onSetTotalTrainers]);
 	const [score, setScore] = useState(0);
 	const [isGameOver, setIsGameOver] = useState(false);
 	const nbrLegitimateTrainer = useRef(0);
