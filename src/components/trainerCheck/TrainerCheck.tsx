@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import ResultScreen from "../resultScreen/ResultScreen";
 import TrainerCheckButtons from "./trainerCheckButtons/TrainerCheckButtons";
 
