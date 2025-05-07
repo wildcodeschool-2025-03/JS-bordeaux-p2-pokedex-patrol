@@ -14,7 +14,7 @@ function Game() {
 	const handleClick = () => {
 		setActiveImage(true);
 	};
-	const handleToggle = () => {
+	const toggleTrainerCard = () => {
 		setShowTrainerCard(!showTrainerCard);
 	};
 
@@ -93,12 +93,12 @@ function Game() {
 					<div className="id_trainer">
 						{showTrainerCard ? (
 							<TrainerCardList
-								onClick={handleToggle}
+								onToggleTrainerCard={toggleTrainerCard}
 								currentIndex={currentIndex}
 								handleNext={handleNext}
 							/>
 						) : (
-							<TrainerCardIcon onClick={handleToggle} />
+							<TrainerCardIcon onClick={toggleTrainerCard} />
 						)}
 					</div>
 				</div>

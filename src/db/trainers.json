@@ -1,0 +1,108 @@
+[
+      {
+        "id": 1,
+        "trainerName": "Sasha",
+        "trainerImgCrop": "src/assets/images/trainerCrop/ash_crop.svg",
+        "trainerRegion": "sinnoh",
+        "trainerBadges": [
+          { "imgBadge": "src/assets/images/badges/badge_fire.svg" },
+          { "imgBadge": "src/assets/images/badges/badge_flower.svg" },
+          { "imgBadge": "src/assets/images/badges/badge_stone.svg" }
+        ]
+      },
+      {
+        "id": 2,
+        "trainerName": "Jongleur",
+        "trainerImgCrop": "src/assets/images/trainerCrop/juggler_crop.svg",
+        "trainerRegion": "kanto",
+        "trainerBadges": [
+          { "imgBadge": "src/assets/images/badges/badge_water.svg" },
+          { "imgBadge": "src/assets/images/badges/badge_heart.svg" }
+        ]
+      },
+      {
+        "id": 3,
+        "trainerName": "Pokemaniac",
+        "trainerImgCrop": "src/assets/images/trainerCrop/pokemaniac_crop.svg",
+        "trainerRegion": "kanto",
+        "trainerBadges": [
+          { "imgBadge": "src/assets/images/badges/badge_stone.svg" },
+          { "imgBadge": "src/assets/images/badges/badge_fire.svg" }
+        ]
+      },
+      {
+        "id": 4,
+        "trainerName": "Motard",
+        "trainerImgCrop": "src/assets/images/trainerCrop/biker_crop.svg",
+        "trainerRegion": "unys",
+        "trainerBadges": [
+          { "imgBadge": "src/assets/images/badges/badge_coin.svg" },
+          { "imgBadge": "src/assets/images/badges/badge_heart.svg" },
+          { "imgBadge": "src/assets/images/badges/badge_flower.svg" }
+        ]
+      },
+      {
+        "id": 5,
+        "trainerName": "Chen",
+        "trainerImgCrop": "src/assets/images/trainerCrop/chen_crop.svg",
+        "trainerRegion": "sinnoh",
+        "trainerBadges": [
+          { "imgBadge": "src/assets/images/badges/badge_water.svg" },
+          { "imgBadge": "src/assets/images/badges/badge_stone.svg" }
+        ]
+      },
+      {
+        "id": 6,
+        "trainerName": "Cameraman",
+        "trainerImgCrop": "src/assets/images/trainerCrop/cameraman_crop.svg",
+        "trainerRegion": "hoenn",
+        "trainerBadges": [
+          { "imgBadge": "src/assets/images/badges/badge_flower.svg" },
+          { "imgBadge": "src/assets/images/badges/badge_fire.svg" },
+          { "imgBadge": "src/assets/images/badges/badge_coin.svg" }
+        ]
+      },
+      {
+        "id": 7,
+        "trainerName": "Clair",
+        "trainerImgCrop": "src/assets/images/trainerCrop/clair_crop.svg",
+        "trainerRegion": "unys",
+        "trainerBadges": [
+          { "imgBadge": "src/assets/images/badges/badge_heart.svg" },
+          { "imgBadge": "src/assets/images/badges/badge_water.svg" }
+        ]
+      },
+      {
+        "id": 8,
+        "trainerName": "Cambrioleur",
+        "trainerImgCrop": "src/assets/images/trainerCrop/burglar_crop.svg",
+        "trainerRegion": "sinnoh",
+        "trainerBadges": [
+          { "imgBadge": "src/assets/images/badges/badge_flower.svg" },
+          { "imgBadge": "src/assets/images/badges/badge_stone.svg" },
+          { "imgBadge": "src/assets/images/badges/badge_heart.svg" }
+        ]
+      },
+      {
+        "id": 9,
+        "trainerName": "Attrapeur",
+        "trainerImgCrop": "src/assets/images/trainerCrop/catcher_crop.svg",
+        "trainerRegion": "hoenn",
+        "trainerBadges": [
+          { "imgBadge": "src/assets/images/badges/badge_water.svg" },
+          { "imgBadge": "src/assets/images/badges/badge_coin.svg" }
+        ]
+      },
+      {
+        "id": 10,
+        "trainerName": "Psychique",
+        "trainerImgCrop": "src/assets/images/trainerCrop/psychic_crop.svg",
+        "trainerRegion": "kanto",
+        "trainerBadges": [
+          { "imgBadge": "src/assets/images/badges/badge_fire.svg" },
+          { "imgBadge": "src/assets/images/badges/badge_heart.svg" },
+          { "imgBadge": "src/assets/images/badges/badge_flower.svg" }
+        ]
+      }
+    ]
+  
