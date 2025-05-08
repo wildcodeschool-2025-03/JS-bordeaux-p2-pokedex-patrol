@@ -1,14 +1,8 @@
-import { useState } from "react";
 import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import "./Game.css";
+import Pokedex from "../../components/pokedex/Pokedex";
 
 function Game() {
-	const [activeImage, setActiveImage] = useState(false);
-
-	const handleClick = () => {
-		setActiveImage(true);
-	};
-
 	return (
 		<>
 			<div className="hud_pokedexpatrol">
@@ -45,17 +39,10 @@ function Game() {
 						<img
 							src="src/assets/images/test_img/test_temoin.svg"
 							alt="Le témoin officiel de tous les pokedexpatrolleurs"
-							onClick={handleClick}
-							onKeyDown={(e) => e.key === "a" && handleClick()}
 						/>
 					</div>
-					<div className="pokedex">
-						<img
-							src="src/assets/images/test_img/test_pokedex.svg"
-							alt="Ceci est un pokédex"
-							onClick={handleClick}
-							onKeyDown={(e) => e.key === "a" && handleClick()}
-						/>
+					<div className="pokedex_hud">
+						<Pokedex />
 					</div>
 					<div className="trainer_check">
 						<TrainerCheck />
@@ -64,26 +51,16 @@ function Game() {
 						<img
 							src="src/assets/images/test_img/test_pokeball.svg"
 							alt="Ceci est la pokéball du dresseur qui se présente au péage"
-							onClick={handleClick}
-							onKeyDown={(e) => e.key === "a" && handleClick()}
 						/>
 					</div>
 					<div className="id_trainer">
 						<img
 							src="src/assets/images/test_img/test_permistrainer.svg"
 							alt="Ceci est le permis du dresseur qui se présente au péage"
-							onClick={handleClick}
-							onKeyDown={(e) => e.key === "a" && handleClick()}
 						/>
 					</div>
 				</div>
 			</div>
-
-			{activeImage && (
-				<div className="information_box">
-					<p>Information à venir</p>
-				</div>
-			)}
 		</>
 	);
 }
