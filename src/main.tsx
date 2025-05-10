@@ -9,6 +9,6 @@ if (rootElement != null) {
 	ReactDOM.createRoot(rootElement).render(
 		<PokemonProvider>
 			<RouterProvider router={router} />
-		</PokemonProvider>
+		</PokemonProvider>,
 	);
 }
