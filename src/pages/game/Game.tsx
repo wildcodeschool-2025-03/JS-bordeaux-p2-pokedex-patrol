@@ -1,33 +1,46 @@
-import { useState } from "react";
-import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import "./Game.css";
+import { useEffect, useState } from "react";
+import { usePokemonContext } from "../../context/PokemonContext";
+import type { PokemonData } from "../../context/PokemonContext";
+import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
+import PokeballTrainer from "../../components/pokeballtrainer/PokeballTrainer";
+import PokemonSprite from "../../components/pokeballtrainer/PokemonSprite";
 
 function Game() {
-	const [activeImage, setActiveImage] = useState(false);
+	const { pokemonData } = usePokemonContext();
+	const [currentIndex, setCurrentIndex] = useState(0);
+	const [shuffledPokemon, setShuffledPokemon] = useState<PokemonData[]>([]);
+	const [selectedPokemons, setSelectedPokemons] = useState<PokemonData[]>([]);
 
-	const handleClick = () => {
-		setActiveImage(true);
+	useEffect(() => {
+		if (pokemonData.length >= 30) {
+			const shuffled = [...pokemonData].sort(() => 0.5 - Math.random());
+			setShuffledPokemon(shuffled);
+			setSelectedPokemons(shuffled.slice(0, 3));
+			setCurrentIndex(3);
+		}
+	}, [pokemonData]);
+
+	const getNextPokemonsForTrainer = () => {
+		if (currentIndex + 3 <= shuffledPokemon.length) {
+			const nextPokemons = shuffledPokemon.slice(
+				currentIndex,
+				currentIndex + 3,
+			);
+			setSelectedPokemons(nextPokemons);
+			setCurrentIndex(currentIndex + 3);
+		}
 	};
+
+	const [activeImage, setActiveImage] = useState(false);
+	const handleClick = () => setActiveImage(true);
 
 	return (
 		<>
 			<div className="hud_pokedexpatrol">
 				<div className="game_window">
-					<img
-						id="pkmn1"
-						src="src/assets/images/test_img/test_pkmn1.svg"
-						alt="pkmn1 pour test"
-					/>
-					<img
-						id="pkmn2"
-						src="src/assets/images/test_img/test_pkmn2.svg"
-						alt="pkmn2 pour test"
-					/>
-					<img
-						id="pkmn3"
-						src="src/assets/images/test_img/test_pkmn3.svg"
-						alt="pkmn3 pour test"
-					/>
+					<PokemonSprite selectedPokemons={selectedPokemons} />
+
 					<img
 						id="trainer"
 						src="src/assets/images/test_img/test_trainer.svg"
@@ -57,21 +70,18 @@ function Game() {
 							onKeyDown={(e) => e.key === "a" && handleClick()}
 						/>
 					</div>
+
 					<div className="trainer_check">
-						<TrainerCheck />
+						<TrainerCheck onNextTrainer={getNextPokemonsForTrainer} />
 					</div>
+
 					<div className="pokeball_trainer">
-						<img
-							src="src/assets/images/test_img/test_pokeball.svg"
-							alt="Ceci est la pokéball du dresseur qui se présente au péage"
-							onClick={handleClick}
-							onKeyDown={(e) => e.key === "a" && handleClick()}
-						/>
+						<PokeballTrainer selectedPokemons={selectedPokemons} />
 					</div>
 					<div className="id_trainer">
 						<img
 							src="src/assets/images/test_img/test_permistrainer.svg"
-							alt="Ceci est le permis du dresseur qui se présente au péage"
+							alt="Ceci est le permis du dresseur"
 							onClick={handleClick}
 							onKeyDown={(e) => e.key === "a" && handleClick()}
 						/>

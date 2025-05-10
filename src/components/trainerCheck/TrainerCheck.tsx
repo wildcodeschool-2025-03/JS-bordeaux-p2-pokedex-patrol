@@ -2,7 +2,11 @@ import { useRef, useState } from "react";
 import ResultScreen from "../resultScreen/ResultScreen";
 import TrainerCheckButtons from "./trainerCheckButtons/TrainerCheckButtons";
 
-function TrainerCheck() {
+interface TrainerCheck {
+	onNextTrainer: () => void;
+}
+
+function TrainerCheck({ onNextTrainer }: TrainerCheck) {
 	const trainers = [
 		{ name: "dresseur1", isTrainerLegitimate: true },
 		{ name: "dresseur2", isTrainerLegitimate: true },
@@ -44,6 +48,7 @@ function TrainerCheck() {
 			setIsGameOver(true);
 		} else {
 			setCurrentTrainer((prev) => prev + 1);
+			onNextTrainer();
 		}
 	};
 
