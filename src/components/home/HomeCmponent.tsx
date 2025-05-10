@@ -37,11 +37,11 @@ function HomeCmponent() {
 					alt="trainer"
 				/>
 				{isTransitioning && (
-					<div className="transition-overlay">
+					<div className="transition_overlay">
 						<img
 							src="src/assets/images/home/pika.gif"
 							alt="Transition"
-							className="transition-img"
+							className="transition_img"
 						/>
 					</div>
 				)}

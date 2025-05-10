@@ -74,7 +74,7 @@
 	grid-area: 6 / 5 / 8 / 7;
 }
 
-.transition-overlay {
+.transition_overlay {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -87,7 +87,7 @@
 	z-index: 10;
 }
 
-.transition-img {
+.transition_img {
 	max-width: 100%;
 	max-height: 100%;
 	object-fit: cover;
