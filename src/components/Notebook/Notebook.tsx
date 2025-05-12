@@ -1,20 +1,19 @@
 import "./Notebook.css";
 
 interface NotebookProps {
-	isOpen: boolean;
-	onToggle: () => void;
-	notebookRef: React.RefObject<HTMLDivElement>;
+	notebookRef: React.RefObject<HTMLButtonElement>;
+	onClick?: () => void;
+	open?: boolean;
 }
 
-function Notebook({ isOpen, onToggle, notebookRef }: NotebookProps) {
-	if (isOpen) {
-		return <div ref={notebookRef} className="notebook-button open" />;
-	}
+function Notebook({ notebookRef, onClick, open }: NotebookProps) {
 	return (
 		<button
 			type="button"
-			className="notebook-button closed"
-			onClick={onToggle}
+			className={`notebook-button ${open ? "open" : "closed"}`}
+			ref={notebookRef}
+			onClick={onClick}
+			aria-label="Notebook"
 		/>
 	);
 }

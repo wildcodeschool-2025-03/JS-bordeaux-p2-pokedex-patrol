@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./CarouselOverlay.css";
+import "./Notebook_carouseloverlay.css";
 interface CarouselOverlayProps {
 	cardSvgs: string[];
 	cardNames: string[];

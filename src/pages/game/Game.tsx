@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
-import hoennCard from "../../assets/images/verif/carte_dresseur_hoenn.svg";
-import kantoCard from "../../assets/images/verif/carte_dresseur_kanto.svg";
-import sinnohCard from "../../assets/images/verif/carte_dresseur_sinnoh.svg";
-import unysCard from "../../assets/images/verif/carte_dresseur_unys.svg";
-import CarouselOverlay from "../../components/CarouselOverlay/CarouselOverlay";
-import Modal from "../../components/Modal/Modal";
+import hoennCard from "../../assets/images/verif/trainer_card_hoenn.svg";
+import kantoCard from "../../assets/images/verif/trainer_card_kanto.svg";
+import sinnohCard from "../../assets/images/verif/trainer_card_sinnoh.svg";
+import unysCard from "../../assets/images/verif/trainer_card_unys.svg";
+import CarouselOverlay from "../../components/CarouselOverlay/Notebook_carouseloverlay";
+import Modal from "../../components/Modal/Notebook_modal";
 import Notebook from "../../components/Notebook/Notebook";
 import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import "./Game.css";
@@ -14,14 +14,16 @@ const cardNames = ["Hoenn", "Kanto", "Sinnoh", "Unys"];
 
 function Game() {
 	const [isNotebookOpen, setIsNotebookOpen] = useState(false);
-	const notebookRef = useRef<HTMLDivElement>(null);
+	const notebookRef = useRef<HTMLButtonElement>(null);
 	const [activeImage, setActiveImage] = useState(false);
 
 	const handleClick = () => {
 		setActiveImage(true);
 	};
 
-	const toggleNotebook = () => setIsNotebookOpen((prev) => !prev);
+	const handleNotebookClick = () => {
+		setIsNotebookOpen(true);
+	};
 
 	return (
 		<>
@@ -59,19 +61,29 @@ function Game() {
 						<div className="game-container">
 							{!isNotebookOpen && (
 								<Notebook
-									isOpen={isNotebookOpen}
-									onToggle={toggleNotebook}
 									notebookRef={notebookRef}
+									onClick={handleNotebookClick}
+									open={false}
 								/>
 							)}
-							<Modal isOpen={isNotebookOpen} onClose={toggleNotebook}>
-								<Notebook
-									isOpen={true}
-									onToggle={toggleNotebook}
-									notebookRef={notebookRef}
-								/>
-								<CarouselOverlay cardSvgs={cardSvgs} cardNames={cardNames} />
-							</Modal>
+							{isNotebookOpen && (
+								<Modal onClose={() => setIsNotebookOpen(false)}>
+									<div
+										style={{
+											position: "relative",
+											width: "950px",
+											height: "950px",
+											margin: "0 auto",
+										}}
+									>
+										<Notebook notebookRef={notebookRef} open={true} />
+										<CarouselOverlay
+											cardSvgs={cardSvgs}
+											cardNames={cardNames}
+										/>
+									</div>
+								</Modal>
+							)}
 						</div>
 					</div>
 					<div className="pokedex">

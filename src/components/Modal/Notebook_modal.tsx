@@ -1,14 +1,12 @@
 import type { ReactNode } from "react";
-import "./Modal.css";
+import "./Notebook_modal.css";
 
 interface ModalProps {
-	isOpen: boolean;
-	onClose: () => void;
 	children: ReactNode;
+	onClose: () => void;
 }
 
-export default function Modal({ isOpen, onClose, children }: ModalProps) {
-	if (!isOpen) return null;
+export default function Modal({ children, onClose }: ModalProps) {
 	return (
 		<div
 			className="modal-backdrop"
