@@ -21,8 +21,12 @@ interface Props {
 
 function WildTrainer({ trainers }: Props) {
 	return (
-		<>
-			<img src={trainers.portraitImage || trainers.imgTrainer} alt="Trainer" />
+		<div className="wildTrainer">
+			<img
+				className="Trainer"
+				src={trainers.portraitImage || trainers.imgTrainer}
+				alt="Trainer"
+			/>
 			<div className="chatBox">
 				<img src="src/assets/images/chat_box.svg" alt="chatBox" />
 				<p className="textOnImage">
@@ -31,7 +35,7 @@ function WildTrainer({ trainers }: Props) {
 					!
 				</p>
 			</div>
-		</>
+		</div>
 	);
 }
 

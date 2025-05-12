@@ -72,6 +72,14 @@ function Game() {
 		setTrainers(getRandomTrainers());
 	}, []);
 
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			pickWildTrainer();
+		}, 3000);
+
+		return () => clearTimeout(timeout);
+	});
+
 	const pickWildTrainer = () => {
 		if (currentIndex < 10) {
 			setSelectedTrainer(<WildTrainer trainers={trainers[currentIndex]} />);
@@ -100,11 +108,7 @@ function Game() {
 						src="src/assets/images/test_img/test_pkmn3.svg"
 						alt="pkmn3 pour test"
 					/>
-					<img
-						id="trainer"
-						src="src/assets/images/test_img/test_trainer.svg"
-						alt="trainer pour test"
-					/>
+					<div id="trainer">{selectedTrainer}</div>
 					<img
 						id="window_sill"
 						src="src/assets/images/hud/game_window.svg"
@@ -130,7 +134,7 @@ function Game() {
 						/>
 					</div>
 					<div className="trainer_check">
-						<TrainerCheck />
+						<TrainerCheck pickWildTrainer={pickWildTrainer} />
 					</div>
 					<div className="pokeball_trainer">
 						<img
@@ -155,12 +159,6 @@ function Game() {
 					<p>Information à venir</p>
 				</div>
 			)}
-			<div>
-				<button type="button" onClick={pickWildTrainer}>
-					Prochain dresseur !
-				</button>
-				<div>{selectedTrainer}</div>
-			</div>
 		</>
 	);
 }

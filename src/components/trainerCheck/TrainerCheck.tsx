@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import ResultScreen from "../resultScreen/ResultScreen";
 import TrainerCheckButtons from "./trainerCheckButtons/TrainerCheckButtons";
 
-function TrainerCheck() {
+function TrainerCheck({ pickWildTrainer }) {
 	const trainers = [
 		{ name: "dresseur1", isTrainerLegitimate: true },
 		{ name: "dresseur2", isTrainerLegitimate: true },
@@ -59,8 +59,14 @@ function TrainerCheck() {
 			) : (
 				<>
 					<TrainerCheckButtons
-						onApprove={() => handleTrainerCheck(true)}
-						onDeny={() => handleTrainerCheck(false)}
+						onApprove={() => {
+							handleTrainerCheck(true);
+							pickWildTrainer();
+						}}
+						onDeny={() => {
+							handleTrainerCheck(false);
+							pickWildTrainer();
+						}}
 					/>
 				</>
 			)}

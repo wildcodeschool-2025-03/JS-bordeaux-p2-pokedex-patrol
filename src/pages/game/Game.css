@@ -32,11 +32,12 @@
 }
 #trainer {
 	max-width: 60%;
-	grid-area: 1 / 5 / 2 / 8;
+	grid-area: 1 / 6 / 2 / 8;
 }
 #window_sill {
 	grid-area: 1 / 1 / 2 / 8;
 	width: 100%;
+	z-index: 2;
 }
 
 .game_desk {
