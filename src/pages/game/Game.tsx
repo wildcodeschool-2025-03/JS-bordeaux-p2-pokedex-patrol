@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TrainerCard from "../../components/trainerCard/TrainersCard";
+import TrainerCard from "../../components/trainerCard/TrainerCard";
 import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import "./Game.css";
 

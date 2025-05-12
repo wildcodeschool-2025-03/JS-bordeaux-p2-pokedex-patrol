@@ -1,7 +1,7 @@
-import "./TrainersCard.css";
+import "./TrainerCard.css";
 import trainers from "../../db/trainers.json";
 
-function TrainerCardList({ onToggleTrainerCard, currentIndex }) {
+function TrainerCard({ onToggleTrainerCard, currentIndex }) {
 	const currentTrainer = trainers[currentIndex];
 	return (
 		<div
@@ -33,4 +33,4 @@ function TrainerCardList({ onToggleTrainerCard, currentIndex }) {
 	);
 }
 
-export default TrainerCardList;
+export default TrainerCard;
