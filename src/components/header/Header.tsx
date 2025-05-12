@@ -15,6 +15,7 @@ function Header() {
 				onKeyDown={handleClick}
 				src="src/assets/images/home/speaker.svg"
 				alt="speaker"
+				className="speaker_img"
 			/>
 			{activeImage && (
 				<div className="information_box">
