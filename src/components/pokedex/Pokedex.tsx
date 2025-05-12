@@ -7,14 +7,6 @@ const Pokedex = () => {
 	const [isPokedexOpen, setIsPokedexOpen] = useState(false);
 	const [filter, setFilter] = useState("");
 
-	const openPokedex = () => {
-		setIsPokedexOpen(true);
-	};
-
-	const closePokedex = () => {
-		setIsPokedexOpen(false);
-	};
-
 	const filteredPokemon = pokemonData.filter((pokemon) =>
 		pokemon.name.toLowerCase().includes(filter.toLowerCase()),
 	);
@@ -24,16 +16,16 @@ const Pokedex = () => {
 			<img
 				src="/src/assets/images/hud/pokedexhud.svg"
 				alt="Pokedex fermé"
-				onClick={openPokedex}
-				onKeyDown={(e) => e.key === "p" && openPokedex()}
+				onClick={() => setIsPokedexOpen(true)}
+				onKeyDown={(e) => e.key === "p"}
 			/>
 
 			{isPokedexOpen && (
 				<PokedexModal
 					pokemonData={filteredPokemon}
-					onClose={closePokedex}
 					filter={filter}
 					setFilter={setFilter}
+					onClose={() => setIsPokedexOpen(false)}
 				/>
 			)}
 		</div>

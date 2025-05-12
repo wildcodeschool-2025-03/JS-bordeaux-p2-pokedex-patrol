@@ -1,10 +1,15 @@
 import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import "./Game.css";
+import PokemonList from "../../API/PokemonList";
 import Pokedex from "../../components/pokedex/Pokedex";
 
 function Game() {
 	return (
 		<>
+			<div className="PokemonList">
+				<PokemonList />
+			</div>
+
 			<div className="hud_pokedexpatrol">
 				<div className="game_window">
 					<img

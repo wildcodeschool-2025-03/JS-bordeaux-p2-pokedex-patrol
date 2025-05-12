@@ -1,92 +1,68 @@
-import { useCallback, useEffect, useState } from "react";
-
-interface PokemonData {
-	id: number;
-	name: string;
-	image: string;
-	weight: number;
-	height: number;
-	types: string[];
-}
+import { useEffect } from "react";
+import { type PokemonData, usePokemonContext } from "../context/PokemonContext";
 
 interface NameEntry {
 	name: string;
-	language: {
-		name: string;
-		url: string;
-	};
+	language: { name: string; url: string };
 }
 
 interface TypeEntry {
 	slot: number;
-	type: {
-		name: string;
-		url: string;
-	};
+	type: { name: string; url: string };
 }
 
-const PokemonList = () => {
-	const [pokemonData, setPokemonData] = useState<PokemonData[]>([]);
+const getRandomPokemonIds = () => {
+	const ids = new Set<number>();
+	while (ids.size < 30) {
+		ids.add(Math.floor(Math.random() * 251) + 1);
+	}
+	return Array.from(ids);
+};
 
-	const getRandomPokemonIds = useCallback(() => {
-		const ids = new Set();
-		while (ids.size < 30) {
-			ids.add(Math.floor(Math.random() * 251) + 1);
-		}
-		return Array.from(ids);
-	}, []);
+const PokemonList = () => {
+	const { setPokemonData, pokemonData } = usePokemonContext();
 
 	useEffect(() => {
 		const fetchPokemons = async () => {
-			try {
-				const ids = getRandomPokemonIds();
+			const ids = getRandomPokemonIds();
 
-				const promises = ids.map(async (id) => {
-					const [pokemonRes, speciesRes] = await Promise.all([
-						fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then((res) =>
-							res.json(),
-						),
-						fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`).then(
-							(res) => res.json(),
-						),
-					]);
+			const promises = ids.map(async (id) => {
+				const [pokemonRes, speciesRes] = await Promise.all([
+					fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then((res) =>
+						res.json(),
+					),
+					fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`).then((res) =>
+						res.json(),
+					),
+				]);
 
-					const frenchNameEntry = speciesRes.names.find(
-						(entry: NameEntry) => entry.language.name === "fr",
-					);
-					const frenchName = frenchNameEntry
-						? frenchNameEntry.name
-						: pokemonRes.name;
+				const frenchNameEntry = speciesRes.names.find(
+					(entry: NameEntry) => entry.language.name === "fr",
+				);
 
-					return {
-						id: pokemonRes.id,
-						name: frenchName,
-						image: pokemonRes.sprites.front_default,
-						weight: pokemonRes.weight,
-						height: pokemonRes.height,
-						types: pokemonRes.types.map((t: TypeEntry) => t.type.name),
-					};
-				});
+				return {
+					id: pokemonRes.id,
+					name: frenchNameEntry?.name || pokemonRes.name,
+					image: pokemonRes.sprites.front_default,
+					weight: pokemonRes.weight,
+					height: pokemonRes.height,
+					types: pokemonRes.types.map((t: TypeEntry) => t.type.name),
+				} as PokemonData;
+			});
 
-				const clearData = await Promise.all(promises);
-				setPokemonData(clearData);
-			} catch (error) {
-				console.error("Oups...:", error);
-			}
+			const clearData = await Promise.all(promises);
+			setPokemonData(clearData);
 		};
 
 		fetchPokemons();
-	}, [getRandomPokemonIds]);
+	}, [setPokemonData]);
 
 	return (
 		<div>
 			{pokemonData.map((pokemon) => (
-				<div className="TrainerPokemon" key={pokemon.id}>
+				<div key={pokemon.id}>
 					<img src={pokemon.image} alt={pokemon.name} />
 					<p>{pokemon.name}</p>
-					<p>{pokemon.weight / 10} : kg</p>
-					<p>{pokemon.height * 10} : cm</p>
-					<p>{pokemon.types[0]}</p>
 				</div>
 			))}
 		</div>
