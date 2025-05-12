@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import hoennCard from "../../assets/images/verif/trainer_card_hoenn.svg";
 import kantoCard from "../../assets/images/verif/trainer_card_kanto.svg";
 import sinnohCard from "../../assets/images/verif/trainer_card_sinnoh.svg";
@@ -8,17 +8,89 @@ import Modal from "../../components/Modal/Notebook_modal";
 import Notebook from "../../components/Notebook/Notebook";
 import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import "./Game.css";
+import WildTrainer from "../../components/WildTrainer";
+import trainersData from "../../db/trainers.json";
+
+export interface TrainerInterface {
+	id: number;
+	nameTrainer: string;
+	imgTrainer: string;
+	imgTrainerCrop: string;
+	RegionsTrainer: string;
+	isTrainerCorrupted: boolean;
+}
+
+const trainers = trainersData as unknown as TrainerInterface[];
+
+const shuffleArray = <T,>(array: T[]): T[] => {
+	const shuffled = [...array];
+	for (let i = shuffled.length - 1; i > 0; i--) {
+		const randomIndex = Math.floor(Math.random() * (i + 1));
+		[shuffled[i], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[i]];
+	}
+	return shuffled;
+};
+
+type CorruptibleTrainerKey = keyof Pick<
+	TrainerInterface,
+	"nameTrainer" | "imgTrainer" | "imgTrainerCrop" | "RegionsTrainer"
+>;
+
+const getRandomTrainers = (trainerCount = 10): TrainerInterface[] => {
+	const selectedTrainers = shuffleArray(trainers).slice(0, trainerCount);
+	const numberOfFakeTrainers = Math.floor(Math.random() * 3) + 2;
+
+	const indicesToCorrupt = shuffleArray([
+		...Array(selectedTrainers.length).keys(),
+	]).slice(0, numberOfFakeTrainers);
+
+	const propertiesToCorrupt = shuffleArray<CorruptibleTrainerKey>([
+		"nameTrainer",
+		"imgTrainer",
+		"imgTrainerCrop",
+		"RegionsTrainer",
+	]).slice(0, numberOfFakeTrainers);
+
+	for (let i = 0; i < indicesToCorrupt.length; i++) {
+		const index = indicesToCorrupt[i];
+		const prop = propertiesToCorrupt[i];
+		const sourceIndex = (index + 4) % selectedTrainers.length;
+
+		selectedTrainers[index].isTrainerCorrupted = true;
+		selectedTrainers[index][prop] = selectedTrainers[sourceIndex][prop];
+	}
+
+	return selectedTrainers;
+};
 
 const cardSvgs = [hoennCard, kantoCard, sinnohCard, unysCard];
 const cardNames = ["Hoenn", "Kanto", "Sinnoh", "Unys"];
 
 function Game() {
+	const [trainers, setTrainers] = useState<TrainerInterface[]>([]);
+	const [currentIndex, setCurrentIndex] = useState(0);
+	const [selectedTrainer, setSelectedTrainer] = useState<JSX.Element | null>(
+		null,
+	);
 	const [isNotebookOpen, setIsNotebookOpen] = useState(false);
 	const notebookRef = useRef<HTMLButtonElement>(null);
 	const [activeImage, setActiveImage] = useState(false);
 
 	const handleClick = () => {
 		setActiveImage(true);
+	};
+
+	useEffect(() => {
+		setTrainers(getRandomTrainers());
+	}, []);
+
+	const pickWildTrainer = () => {
+		if (currentIndex < 10) {
+			setSelectedTrainer(<WildTrainer trainers={trainers[currentIndex]} />);
+			setCurrentIndex((prev) => prev + 1);
+		} else {
+			setSelectedTrainer(<p>Fin des dresseurs !</p>);
+		}
 	};
 
 	const handleNotebookClick = () => {
@@ -115,12 +187,17 @@ function Game() {
 					</div>
 				</div>
 			</div>
-
 			{activeImage && (
 				<div className="information_box">
 					<p>Information à venir</p>
 				</div>
 			)}
+			<div>
+				<button type="button" onClick={pickWildTrainer}>
+					Prochain dresseur !
+				</button>
+				<div>{selectedTrainer}</div>
+			</div>
 		</>
 	);
 }
