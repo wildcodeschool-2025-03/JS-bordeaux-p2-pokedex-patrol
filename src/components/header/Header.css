@@ -7,3 +7,21 @@ header {
 	align-items: center;
 	padding-right: 1em;
 }
+
+.information_box {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	border: 2px solid black;
+	padding: 20px;
+	text-align: center;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.information_box p {
+	margin: 0;
+	font-size: 16px;
+	color: black;
+}
