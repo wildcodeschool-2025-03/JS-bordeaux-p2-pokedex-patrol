@@ -1,5 +1,5 @@
-import type { PokemonData } from "../../context/PokemonContext";
 import { useState } from "react";
+import type { PokemonData } from "../../context/PokemonContext";
 import PokeballModal from "./PokeballModal";
 
 interface PokeballTrainer {
@@ -9,19 +9,19 @@ interface PokeballTrainer {
 const PokeballTrainer = ({ selectedPokemons }: PokeballTrainer) => {
 	const [isPokeballOpen, setIsPokeballOpen] = useState(false);
 
-	const openPokeball = () => setIsPokeballOpen(true);
-	const closePokeball = () => setIsPokeballOpen(false);
-
 	return (
 		<div>
 			<img
 				src="/src/assets/images/hud/pokeball_hud.svg"
 				alt="Pokéball fermé"
-				onClick={openPokeball}
-				onKeyDown={(e) => e.key === "b" && openPokeball()}
+				onClick={() => setIsPokeballOpen(true)}
+				onKeyDown={(e) => e.key === "b"}
 			/>
 			{isPokeballOpen && (
-				<PokeballModal pokemonData={selectedPokemons} onClose={closePokeball} />
+				<PokeballModal
+					pokemonData={selectedPokemons}
+					onClose={() => setIsPokeballOpen(false)}
+				/>
 			)}
 		</div>
 	);

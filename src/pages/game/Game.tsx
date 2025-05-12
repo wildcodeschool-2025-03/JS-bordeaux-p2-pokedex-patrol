@@ -1,10 +1,10 @@
 import "./Game.css";
 import { useEffect, useState } from "react";
-import { usePokemonContext } from "../../context/PokemonContext";
-import type { PokemonData } from "../../context/PokemonContext";
-import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import PokeballTrainer from "../../components/pokeballtrainer/PokeballTrainer";
 import PokemonSprite from "../../components/pokeballtrainer/PokemonSprite";
+import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
+import { usePokemonContext } from "../../context/PokemonContext";
+import type { PokemonData } from "../../context/PokemonContext";
 
 function Game() {
 	const { pokemonData } = usePokemonContext();
