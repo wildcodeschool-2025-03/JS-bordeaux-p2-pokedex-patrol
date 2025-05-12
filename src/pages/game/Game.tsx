@@ -1,8 +1,7 @@
 import { useState } from "react";
-import TrainerCardList from "../../components/trainerCard/trainersCardList/TrainersCardList";
+import TrainerCard from "../../components/trainerCard/TrainersCard";
 import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import "./Game.css";
-import TrainerCardIcon from "../../components/trainerCard/trainersCardList/trainerCardIcon/TrainerCardIcon";
 
 function Game() {
 	const [showTrainerCard, setShowTrainerCard] = useState(false);
@@ -92,13 +91,18 @@ function Game() {
 					</div>
 					<div className="id_trainer">
 						{showTrainerCard ? (
-							<TrainerCardList
+							<TrainerCard
 								onToggleTrainerCard={toggleTrainerCard}
 								currentIndex={currentIndex}
 								handleNext={handleNext}
 							/>
 						) : (
-							<TrainerCardIcon onClick={toggleTrainerCard} />
+							<img
+								src="src/assets/images/trainerCard/trainer_card.svg"
+								alt="trainer card"
+								onClick={toggleTrainerCard}
+								onKeyDown={(e) => e.key === "Enter" && handleClick()}
+							/>
 						)}
 					</div>
 				</div>
