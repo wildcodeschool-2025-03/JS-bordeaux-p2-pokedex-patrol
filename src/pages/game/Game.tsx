@@ -6,9 +6,7 @@ import Pokedex from "../../components/pokedex/Pokedex";
 function Game() {
 	return (
 		<>
-			<div className="PokemonList">
-				<PokemonList />
-			</div>
+			<PokemonList />
 
 			<div className="hud_pokedexpatrol">
 				<div className="game_window">

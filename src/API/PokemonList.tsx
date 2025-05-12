@@ -20,7 +20,7 @@ const getRandomPokemonIds = () => {
 };
 
 const PokemonList = () => {
-	const { setPokemonData, pokemonData } = usePokemonContext();
+	const { setPokemonData } = usePokemonContext();
 
 	useEffect(() => {
 		const fetchPokemons = async () => {
@@ -56,17 +56,6 @@ const PokemonList = () => {
 
 		fetchPokemons();
 	}, [setPokemonData]);
-
-	return (
-		<div>
-			{pokemonData.map((pokemon) => (
-				<div key={pokemon.id}>
-					<img src={pokemon.image} alt={pokemon.name} />
-					<p>{pokemon.name}</p>
-				</div>
-			))}
-		</div>
-	);
 };
 
 export default PokemonList;

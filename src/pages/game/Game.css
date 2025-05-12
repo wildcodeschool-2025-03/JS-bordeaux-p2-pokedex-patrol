@@ -1,7 +1,3 @@
-.PokemonList {
-	display: none;
-}
-
 .hud_pokedexpatrol {
 	display: flex;
 	flex-direction: column;
