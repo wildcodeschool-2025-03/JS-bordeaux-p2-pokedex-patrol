@@ -1,8 +1,10 @@
 import "./Game.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import WildTrainer from "../../components/WildTrainer";
 import Pokedex from "../../components/pokedex/Pokedex";
 import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import { usePokemonContext } from "../../context/PokemonContext";
+import trainersData from "../../db/trainers.json";
 
 interface NameEntry {
 	name: string;
@@ -14,6 +16,15 @@ interface TypeEntry {
 	type: { name: string; url: string };
 }
 
+interface TrainerInterface {
+	id: number;
+	nameTrainer: string;
+	imgTrainer: string;
+	imgTrainerCrop: string;
+	RegionsTrainer: string;
+	isTrainerCorrupted: boolean;
+}
+
 const getRandomPokemonIds = () => {
 	const ids = new Set<number>();
 	while (ids.size < 30) {
@@ -22,8 +33,57 @@ const getRandomPokemonIds = () => {
 	return Array.from(ids);
 };
 
+const trainers = trainersData as unknown as TrainerInterface[];
+
+const shuffleArray = <T,>(array: T[]): T[] => {
+	const shuffled = [...array];
+	for (let i = shuffled.length - 1; i > 0; i--) {
+		const randomIndex = Math.floor(Math.random() * (i + 1));
+		[shuffled[i], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[i]];
+	}
+	return shuffled;
+};
+
+type CorruptibleTrainerKey = keyof Pick<
+	TrainerInterface,
+	"nameTrainer" | "imgTrainer" | "imgTrainerCrop" | "RegionsTrainer"
+>;
+
+const getRandomTrainers = (trainerCount = 10): TrainerInterface[] => {
+	const selectedTrainers = shuffleArray(trainers).slice(0, trainerCount);
+	const numberOfFakeTrainers = Math.floor(Math.random() * 3) + 2;
+
+	const indicesToCorrupt = shuffleArray([
+		...Array(selectedTrainers.length).keys(),
+	]).slice(0, numberOfFakeTrainers);
+
+	const propertiesToCorrupt = shuffleArray<CorruptibleTrainerKey>([
+		"nameTrainer",
+		"imgTrainer",
+		"imgTrainerCrop",
+		"RegionsTrainer",
+	]).slice(0, numberOfFakeTrainers);
+
+	for (let i = 0; i < indicesToCorrupt.length; i++) {
+		const index = indicesToCorrupt[i];
+		const prop = propertiesToCorrupt[i];
+		const sourceIndex = (index + 4) % selectedTrainers.length;
+
+		selectedTrainers[index].isTrainerCorrupted = true;
+		selectedTrainers[index][prop] = selectedTrainers[sourceIndex][prop];
+	}
+
+	return selectedTrainers;
+};
+
 function Game() {
 	const { setPokemonData } = usePokemonContext();
+
+	const [trainers, setTrainers] = useState<TrainerInterface[]>([]);
+	const [currentIndex, setCurrentIndex] = useState(0);
+	const [selectedTrainer, setSelectedTrainer] = useState<JSX.Element | null>(
+		null,
+	);
 
 	useEffect(() => {
 		const fetchPokemons = async () => {
@@ -58,7 +118,20 @@ function Game() {
 		};
 
 		fetchPokemons();
-	}, [setPokemonData]);
+	}, []);
+
+	useEffect(() => {
+		setTrainers(getRandomTrainers());
+	}, []);
+
+	const pickWildTrainer = () => {
+		if (currentIndex < 10) {
+			setSelectedTrainer(<WildTrainer trainers={trainers[currentIndex]} />);
+			setCurrentIndex((prev) => prev + 1);
+		} else {
+			setSelectedTrainer(<p>Fin des dresseurs !</p>);
+		}
+	};
 
 	return (
 		<>
@@ -117,6 +190,13 @@ function Game() {
 						/>
 					</div>
 				</div>
+			</div>
+
+			<div>
+				<button type="button" onClick={pickWildTrainer}>
+					Prochain dresseur !
+				</button>
+				<div>{selectedTrainer}</div>
 			</div>
 		</>
 	);
