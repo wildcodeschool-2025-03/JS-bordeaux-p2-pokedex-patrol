@@ -69,16 +69,15 @@ function Game() {
 	};
 
 	useEffect(() => {
-		setTrainers(getRandomTrainers());
-	}, []);
+		const randomTrainers = getRandomTrainers();
+		setTrainers(randomTrainers);
 
-	useEffect(() => {
 		const timeout = setTimeout(() => {
-			pickWildTrainer();
+			setSelectedTrainer(<WildTrainer trainers={randomTrainers[0]} />);
 		}, 3000);
 
 		return () => clearTimeout(timeout);
-	});
+	}, []);
 
 	const pickWildTrainer = () => {
 		if (currentIndex < 10) {
