@@ -1,6 +1,6 @@
 import type React from "react";
 import type { PokemonData } from "../../context/PokemonContext";
-import "./Pokedexmodal.css";
+import "./PokedexModal.css";
 
 const PokedexModal = ({
 	pokemonData,
