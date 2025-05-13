@@ -9,9 +9,21 @@ import Modal from "../../components/Notebook/Modal/NotebookModal";
 import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import "./Game.css";
 import WildTrainer from "../../components/WildTrainer";
+import Pokedex from "../../components/pokedex/Pokedex";
+import { usePokemonContext } from "../../context/PokemonContext";
 import trainersData from "../../db/trainers.json";
 
-export interface TrainerInterface {
+interface NameEntry {
+	name: string;
+	language: { name: string; url: string };
+}
+
+interface TypeEntry {
+	slot: number;
+	type: { name: string; url: string };
+}
+
+interface TrainerInterface {
 	id: number;
 	nameTrainer: string;
 	imgTrainer: string;
@@ -19,6 +31,14 @@ export interface TrainerInterface {
 	RegionsTrainer: string;
 	isTrainerCorrupted: boolean;
 }
+
+const getRandomPokemonIds = () => {
+	const ids = new Set<number>();
+	while (ids.size < 30) {
+		ids.add(Math.floor(Math.random() * 251) + 1);
+	}
+	return Array.from(ids);
+};
 
 const trainers = trainersData as unknown as TrainerInterface[];
 
@@ -67,6 +87,8 @@ const cardSvgs = [hoennCard, kantoCard, sinnohCard, unysCard];
 const cardNames = ["Hoenn", "Kanto", "Sinnoh", "Unys"];
 
 function Game() {
+	const { setPokemonData } = usePokemonContext();
+
 	const [trainers, setTrainers] = useState<TrainerInterface[]>([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [selectedTrainer, setSelectedTrainer] = useState<JSX.Element | null>(
@@ -76,9 +98,40 @@ function Game() {
 	const notebookRef = useRef<HTMLButtonElement>(null);
 	const [activeImage, setActiveImage] = useState(false);
 
-	const handleClick = () => {
-		setActiveImage(true);
-	};
+	useEffect(() => {
+		const fetchPokemons = async () => {
+			const ids = getRandomPokemonIds();
+
+			const promises = ids.map(async (id) => {
+				const [pokemonRes, speciesRes] = await Promise.all([
+					fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then((res) =>
+						res.json(),
+					),
+					fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`).then((res) =>
+						res.json(),
+					),
+				]);
+
+				const frenchNameEntry = speciesRes.names.find(
+					(entry: NameEntry) => entry.language.name === "fr",
+				);
+
+				return {
+					id: pokemonRes.id,
+					name: frenchNameEntry?.name || pokemonRes.name,
+					image: pokemonRes.sprites.front_default,
+					weight: pokemonRes.weight,
+					height: pokemonRes.height,
+					types: pokemonRes.types.map((t: TypeEntry) => t.type.name),
+				};
+			});
+
+			const clearData = await Promise.all(promises);
+			setPokemonData(clearData);
+		};
+
+		fetchPokemons();
+	}, [setPokemonData]);
 
 	useEffect(() => {
 		setTrainers(getRandomTrainers());
@@ -158,13 +211,8 @@ function Game() {
 							)}
 						</div>
 					</div>
-					<div className="pokedex">
-						<img
-							src="src/assets/images/test_img/test_pokedex.svg"
-							alt="Ceci est un pokédex"
-							onClick={handleClick}
-							onKeyDown={(e) => e.key === "a" && handleClick()}
-						/>
+					<div className="pokedex_hud">
+						<Pokedex />
 					</div>
 					<div className="trainer_check">
 						<TrainerCheck />
@@ -173,25 +221,17 @@ function Game() {
 						<img
 							src="src/assets/images/test_img/test_pokeball.svg"
 							alt="Ceci est la pokéball du dresseur qui se présente au péage"
-							onClick={handleClick}
-							onKeyDown={(e) => e.key === "a" && handleClick()}
 						/>
 					</div>
 					<div className="id_trainer">
 						<img
 							src="src/assets/images/test_img/test_permistrainer.svg"
 							alt="Ceci est le permis du dresseur qui se présente au péage"
-							onClick={handleClick}
-							onKeyDown={(e) => e.key === "a" && handleClick()}
 						/>
 					</div>
 				</div>
 			</div>
-			{activeImage && (
-				<div className="information_box">
-					<p>Information à venir</p>
-				</div>
-			)}
+
 			<div>
 				<button type="button" onClick={pickWildTrainer}>
 					Prochain dresseur !
