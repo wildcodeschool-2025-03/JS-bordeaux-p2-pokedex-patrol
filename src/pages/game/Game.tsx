@@ -1,6 +1,13 @@
+import { useEffect, useRef, useState } from "react";
+import hoennCard from "../../assets/images/verif/trainer_card_hoenn.svg";
+import kantoCard from "../../assets/images/verif/trainer_card_kanto.svg";
+import sinnohCard from "../../assets/images/verif/trainer_card_sinnoh.svg";
+import unysCard from "../../assets/images/verif/trainer_card_unys.svg";
+import Notebook from "../../components/Notebook/Button/NotebookButton";
+import CarouselOverlay from "../../components/Notebook/Licences/Licences";
+import Modal from "../../components/Notebook/Modal/NotebookModal";
 import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import "./Game.css";
-import { useEffect, useState } from "react";
 import WildTrainer from "../../components/WildTrainer";
 import trainersData from "../../db/trainers.json";
 
@@ -56,12 +63,17 @@ const getRandomTrainers = (trainerCount = 10): TrainerInterface[] => {
 	return selectedTrainers;
 };
 
+const cardSvgs = [hoennCard, kantoCard, sinnohCard, unysCard];
+const cardNames = ["Hoenn", "Kanto", "Sinnoh", "Unys"];
+
 function Game() {
 	const [trainers, setTrainers] = useState<TrainerInterface[]>([]);
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [selectedTrainer, setSelectedTrainer] = useState<JSX.Element | null>(
 		null,
 	);
+	const [isNotebookOpen, setIsNotebookOpen] = useState(false);
+	const notebookRef = useRef<HTMLButtonElement>(null);
 	const [activeImage, setActiveImage] = useState(false);
 
 	const handleClick = () => {
@@ -79,6 +91,10 @@ function Game() {
 		} else {
 			setSelectedTrainer(<p>Fin des dresseurs !</p>);
 		}
+	};
+
+	const handleNotebookClick = () => {
+		setIsNotebookOpen(true);
 	};
 
 	return (
@@ -114,12 +130,33 @@ function Game() {
 
 				<div className="game_desk">
 					<div className="official_witness">
-						<img
-							src="src/assets/images/test_img/test_temoin.svg"
-							alt="Le témoin officiel de tous les pokedexpatrolleurs"
-							onClick={handleClick}
-							onKeyDown={(e) => e.key === "a" && handleClick()}
-						/>
+						<div className="game-container">
+							{!isNotebookOpen && (
+								<Notebook
+									notebookRef={notebookRef}
+									onClick={handleNotebookClick}
+									open={false}
+								/>
+							)}
+							{isNotebookOpen && (
+								<Modal onClose={() => setIsNotebookOpen(false)}>
+									<div
+										style={{
+											position: "relative",
+											width: "950px",
+											height: "950px",
+											margin: "0 auto",
+										}}
+									>
+										<Notebook notebookRef={notebookRef} open={true} />
+										<CarouselOverlay
+											cardSvgs={cardSvgs}
+											cardNames={cardNames}
+										/>
+									</div>
+								</Modal>
+							)}
+						</div>
 					</div>
 					<div className="pokedex">
 						<img
