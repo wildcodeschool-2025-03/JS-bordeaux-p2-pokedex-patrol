@@ -1,4 +1,4 @@
-import "./wildTrainer.css";
+import "./WildTrainer.css";
 
 interface Trainer {
 	id: number;
