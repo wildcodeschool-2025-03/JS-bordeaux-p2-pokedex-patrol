@@ -1,22 +1,17 @@
 import "./ResultScreen.css";
 
-interface Trainer {
-	name: string;
-	isTrainerLegitimate: boolean;
-}
-
 interface ResultScreenProps {
 	score: number;
-	nbrFraudulentTrainer: number;
+	nbrCorruptedTrainer: number;
 	nbrLegitimateTrainer: number;
-	trainers: Trainer[];
+	nbrLegitimateTrainerDenied: number;
 }
 
 function ResultScreen({
 	score,
-	nbrFraudulentTrainer,
+	nbrCorruptedTrainer,
 	nbrLegitimateTrainer,
-	trainers,
+	nbrLegitimateTrainerDenied,
 }: ResultScreenProps) {
 	return (
 		<section id="resultScreen">
@@ -24,11 +19,13 @@ function ResultScreen({
 				<h2>Fin du niveau</h2>
 				<p>
 					Nombres de dresseurs en règles autorisés : ...............{" "}
-					{nbrLegitimateTrainer} /{trainers.length}
+					{nbrLegitimateTrainer} /
+					{nbrLegitimateTrainer + nbrLegitimateTrainerDenied}
 				</p>
 				<p>
 					Nombres de dresseurs fraudleux autorisés : ..............{" "}
-					{nbrFraudulentTrainer} /{trainers.length}
+					{nbrCorruptedTrainer} /
+					{10 - (nbrLegitimateTrainer + nbrLegitimateTrainerDenied)}
 				</p>
 				<hr />
 				<h3>

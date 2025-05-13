@@ -133,7 +133,10 @@ function Game() {
 						/>
 					</div>
 					<div className="trainer_check">
-						<TrainerCheck pickWildTrainer={pickWildTrainer} />
+						<TrainerCheck
+							pickWildTrainer={pickWildTrainer}
+							trainer={trainers[currentIndex - 1]}
+						/>
 					</div>
 					<div className="pokeball_trainer">
 						<img
