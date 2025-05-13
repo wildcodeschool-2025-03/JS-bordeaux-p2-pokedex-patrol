@@ -1,0 +1,76 @@
+.notebook-carousel-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
+	z-index: 1000;
+}
+
+.notebook-carousel-overlay > * {
+	pointer-events: auto;
+}
+
+.carousel-image {
+	width: 300px;
+	height: auto;
+	margin: 0 20px;
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+	border-radius: 12px;
+	background: white;
+}
+
+.carousel-arrow {
+	background: rgba(255, 255, 255, 0.8);
+	border: none;
+	font-size: 2rem;
+	cursor: pointer;
+	border-radius: 50%;
+	width: 48px;
+	height: 48px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	user-select: none;
+	transition: background 0.2s;
+	z-index: 11;
+}
+
+.carousel-arrow:hover {
+	background: #eee;
+}
+
+.carousel-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.carousel-titles {
+	display: flex;
+	justify-content: center;
+	gap: 310px;
+	margin-bottom: 12px;
+}
+
+.carousel-title {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #222;
+	text-shadow: 1px 1px 4px #fff, 0 0 2px #000;
+}
+
+.carousel-images {
+	display: flex;
+	gap: 90px;
+	align-items: center;
+	justify-content: center;
+}
+
+.centered-on-notebook {
+	transform: translateX(40px);
+}
