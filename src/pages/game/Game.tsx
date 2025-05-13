@@ -58,7 +58,7 @@ const getRandomTrainers = (trainerCount = 10): TrainerInterface[] => {
 
 function Game() {
 	const [trainers, setTrainers] = useState<TrainerInterface[]>([]);
-	const [currentIndex, setCurrentIndex] = useState(0);
+	const [currentIndex, setCurrentIndex] = useState(1);
 	const [selectedTrainer, setSelectedTrainer] = useState<JSX.Element | null>(
 		null,
 	);
