@@ -6,11 +6,12 @@ import unysCard from "../../assets/images/verif/trainer_card_unys.svg";
 import Notebook from "../../components/Notebook/Button/NotebookButton";
 import CarouselOverlay from "../../components/Notebook/Licences/Licences";
 import Modal from "../../components/Notebook/Modal/NotebookModal";
-import TrainerCard from "../../components/trainerCard/TrainerCard";
+import TrainerCardModal from "../../components/trainerCard/trainerCardModal/TrainerCardModal";
 import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import "./Game.css";
 import WildTrainer from "../../components/WildTrainer";
 import Pokedex from "../../components/pokedex/Pokedex";
+import TrainerCardButton from "../../components/trainerCard/trainerCardButton/TrainerCardButton";
 import { usePokemonContext } from "../../context/PokemonContext";
 import trainersData from "../../db/trainers.json";
 
@@ -97,14 +98,10 @@ function Game() {
 	);
 	const [isNotebookOpen, setIsNotebookOpen] = useState(false);
 	const notebookRef = useRef<HTMLButtonElement>(null);
-	const [activeImage, setActiveImage] = useState(false);
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [currentTrainer, setCurrentTrainer] = useState(0);
 	const [totalTrainers, setTotalTrainers] = useState(0);
 
-	const handleClick = () => {
-		setActiveImage(true);
-	};
 	const toggleTrainerCard = () => {
 		setShowTrainerCard(!showTrainerCard);
 	};
@@ -248,27 +245,17 @@ function Game() {
 					</div>
 					<div className="id_trainer">
 						{showTrainerCard ? (
-							<TrainerCard
+							<TrainerCardModal
 								onToggleTrainerCard={toggleTrainerCard}
 								currentIndex={currentIndex}
 								handleNext={handleNext}
 							/>
 						) : (
-							<img
-								src="src/assets/images/trainerCard/trainer_card.svg"
-								alt="trainer card"
-								onClick={toggleTrainerCard}
-								onKeyDown={(e) => e.key === "Enter" && handleClick()}
-							/>
+							<TrainerCardButton onToggleTrainerCard={toggleTrainerCard} />
 						)}
-						<img
-							src="src/assets/images/test_img/test_permistrainer.svg"
-							alt="Ceci est le permis du dresseur qui se présente au péage"
-						/>
 					</div>
 				</div>
 			</div>
-
 			<div>
 				<button type="button" onClick={pickWildTrainer}>
 					Prochain dresseur !
