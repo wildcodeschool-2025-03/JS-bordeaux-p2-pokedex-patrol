@@ -39,6 +39,15 @@
 	width: 100%;
 }
 
+#counter {
+	grid-area: 1 / 2 / 2 / 4;
+	align-self: flex-start;
+	justify-self: center;
+	margin-top: 2.2em;
+	margin-left: 1.3em;
+	font-size: var(--font-h2-size);
+}
+
 .game_desk {
 	width: 100%;
 	height: 49%;
