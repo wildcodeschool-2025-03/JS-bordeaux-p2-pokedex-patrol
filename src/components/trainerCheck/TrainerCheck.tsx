@@ -3,10 +3,12 @@ import ResultScreen from "../resultScreen/ResultScreen";
 import TrainerCheckButtons from "./trainerCheckButtons/TrainerCheckButtons";
 interface TrainerInterface {
 	id: number;
-	nameTrainer: string;
-	imgTrainer: string;
-	imgTrainerCrop: string;
-	RegionsTrainer: string;
+	declaredName: string;
+	cardName: string;
+	declaredRegion: string;
+	cardRegion: string;
+	portraitImage: string;
+	cardPortrait: string;
 	isTrainerCorrupted: boolean;
 }
 interface TrainerCheckProps {

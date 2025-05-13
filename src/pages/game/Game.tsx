@@ -1,17 +1,48 @@
+import { useEffect, useRef, useState } from "react";
+import hoennCard from "../../assets/images/verif/trainer_card_hoenn.svg";
+import kantoCard from "../../assets/images/verif/trainer_card_kanto.svg";
+import sinnohCard from "../../assets/images/verif/trainer_card_sinnoh.svg";
+import unysCard from "../../assets/images/verif/trainer_card_unys.svg";
+import Notebook from "../../components/Notebook/Button/NotebookButton";
+import CarouselOverlay from "../../components/Notebook/Licences/Licences";
+import Modal from "../../components/Notebook/Modal/NotebookModal";
+import TrainerCardModal from "../../components/trainerCard/trainerCardModal/TrainerCardModal";
 import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import "./Game.css";
-import { useEffect, useState } from "react";
 import WildTrainer from "../../components/WildTrainer";
+import Pokedex from "../../components/pokedex/Pokedex";
+import TrainerCardButton from "../../components/trainerCard/trainerCardButton/TrainerCardButton";
+import { usePokemonContext } from "../../context/PokemonContext";
 import trainersData from "../../db/trainers.json";
 
-export interface TrainerInterface {
+interface NameEntry {
+	name: string;
+	language: { name: string; url: string };
+}
+
+interface TypeEntry {
+	slot: number;
+	type: { name: string; url: string };
+}
+
+interface TrainerInterface {
 	id: number;
-	nameTrainer: string;
-	imgTrainer: string;
-	imgTrainerCrop: string;
-	RegionsTrainer: string;
+	declaredName: string;
+	cardName: string;
+	declaredRegion: string;
+	cardRegion: string;
+	portraitImage: string;
+	cardPortrait: string;
 	isTrainerCorrupted: boolean;
 }
+
+const getRandomPokemonIds = () => {
+	const ids = new Set<number>();
+	while (ids.size < 30) {
+		ids.add(Math.floor(Math.random() * 251) + 1);
+	}
+	return Array.from(ids);
+};
 
 const trainers = trainersData as unknown as TrainerInterface[];
 
@@ -26,7 +57,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 
 type CorruptibleTrainerKey = keyof Pick<
 	TrainerInterface,
-	"nameTrainer" | "imgTrainer" | "imgTrainerCrop" | "RegionsTrainer"
+	"cardName" | "portraitImage" | "cardRegion" | "declaredRegion"
 >;
 
 const getRandomTrainers = (trainerCount = 10): TrainerInterface[] => {
@@ -38,10 +69,10 @@ const getRandomTrainers = (trainerCount = 10): TrainerInterface[] => {
 	]).slice(0, numberOfFakeTrainers);
 
 	const propertiesToCorrupt = shuffleArray<CorruptibleTrainerKey>([
-		"nameTrainer",
-		"imgTrainer",
-		"imgTrainerCrop",
-		"RegionsTrainer",
+		"cardName",
+		"portraitImage",
+		"cardRegion",
+		"declaredRegion",
 	]).slice(0, numberOfFakeTrainers);
 
 	for (let i = 0; i < indicesToCorrupt.length; i++) {
@@ -56,17 +87,59 @@ const getRandomTrainers = (trainerCount = 10): TrainerInterface[] => {
 	return selectedTrainers;
 };
 
+const cardSvgs = [hoennCard, kantoCard, sinnohCard, unysCard];
+const cardNames = ["Hoenn", "Kanto", "Sinnoh", "Unys"];
+
 function Game() {
+	const [showTrainerCard, setShowTrainerCard] = useState(false);
+	const { setPokemonData } = usePokemonContext();
+
 	const [trainers, setTrainers] = useState<TrainerInterface[]>([]);
 	const [currentIndex, setCurrentIndex] = useState(1);
 	const [selectedTrainer, setSelectedTrainer] = useState<JSX.Element | null>(
 		null,
 	);
-	const [activeImage, setActiveImage] = useState(false);
+	const [isNotebookOpen, setIsNotebookOpen] = useState(false);
+	const notebookRef = useRef<HTMLButtonElement>(null);
 
-	const handleClick = () => {
-		setActiveImage(true);
+	const toggleTrainerCard = () => {
+		setShowTrainerCard(!showTrainerCard);
 	};
+
+	useEffect(() => {
+		const fetchPokemons = async () => {
+			const ids = getRandomPokemonIds();
+
+			const promises = ids.map(async (id) => {
+				const [pokemonRes, speciesRes] = await Promise.all([
+					fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then((res) =>
+						res.json(),
+					),
+					fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`).then((res) =>
+						res.json(),
+					),
+				]);
+
+				const frenchNameEntry = speciesRes.names.find(
+					(entry: NameEntry) => entry.language.name === "fr",
+				);
+
+				return {
+					id: pokemonRes.id,
+					name: frenchNameEntry?.name || pokemonRes.name,
+					image: pokemonRes.sprites.front_default,
+					weight: pokemonRes.weight,
+					height: pokemonRes.height,
+					types: pokemonRes.types.map((t: TypeEntry) => t.type.name),
+				};
+			});
+
+			const clearData = await Promise.all(promises);
+			setPokemonData(clearData);
+		};
+
+		fetchPokemons();
+	}, [setPokemonData]);
 
 	useEffect(() => {
 		const randomTrainers = getRandomTrainers();
@@ -86,6 +159,10 @@ function Game() {
 		} else {
 			setSelectedTrainer(<p>Fin des dresseurs !</p>);
 		}
+	};
+
+	const handleNotebookClick = () => {
+		setIsNotebookOpen(true);
 	};
 
 	return (
@@ -113,24 +190,41 @@ function Game() {
 						src="src/assets/images/hud/game_window.svg"
 						alt="fenêtre de jeu"
 					/>
+					<p id="counter">{currentIndex} / 10</p>
 				</div>
 
 				<div className="game_desk">
 					<div className="official_witness">
-						<img
-							src="src/assets/images/test_img/test_temoin.svg"
-							alt="Le témoin officiel de tous les pokedexpatrolleurs"
-							onClick={handleClick}
-							onKeyDown={(e) => e.key === "a" && handleClick()}
-						/>
+						<div className="game-container">
+							{!isNotebookOpen && (
+								<Notebook
+									notebookRef={notebookRef}
+									onClick={handleNotebookClick}
+									open={false}
+								/>
+							)}
+							{isNotebookOpen && (
+								<Modal onClose={() => setIsNotebookOpen(false)}>
+									<div
+										style={{
+											position: "relative",
+											width: "950px",
+											height: "950px",
+											margin: "0 auto",
+										}}
+									>
+										<Notebook notebookRef={notebookRef} open={true} />
+										<CarouselOverlay
+											cardSvgs={cardSvgs}
+											cardNames={cardNames}
+										/>
+									</div>
+								</Modal>
+							)}
+						</div>
 					</div>
-					<div className="pokedex">
-						<img
-							src="src/assets/images/test_img/test_pokedex.svg"
-							alt="Ceci est un pokédex"
-							onClick={handleClick}
-							onKeyDown={(e) => e.key === "a" && handleClick()}
-						/>
+					<div className="pokedex_hud">
+						<Pokedex />
 					</div>
 					<div className="trainer_check">
 						<TrainerCheck
@@ -142,25 +236,20 @@ function Game() {
 						<img
 							src="src/assets/images/test_img/test_pokeball.svg"
 							alt="Ceci est la pokéball du dresseur qui se présente au péage"
-							onClick={handleClick}
-							onKeyDown={(e) => e.key === "a" && handleClick()}
 						/>
 					</div>
 					<div className="id_trainer">
-						<img
-							src="src/assets/images/test_img/test_permistrainer.svg"
-							alt="Ceci est le permis du dresseur qui se présente au péage"
-							onClick={handleClick}
-							onKeyDown={(e) => e.key === "a" && handleClick()}
-						/>
+						{showTrainerCard ? (
+							<TrainerCardModal
+								onToggleTrainerCard={toggleTrainerCard}
+								trainer={trainers[currentIndex - 1]}
+							/>
+						) : (
+							<TrainerCardButton onToggleTrainerCard={toggleTrainerCard} />
+						)}
 					</div>
 				</div>
 			</div>
-			{activeImage && (
-				<div className="information_box">
-					<p>Information à venir</p>
-				</div>
-			)}
 		</>
 	);
 }
