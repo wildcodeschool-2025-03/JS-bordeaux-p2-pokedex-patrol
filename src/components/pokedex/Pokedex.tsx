@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { usePokemonContext } from "../../context/PokemonContext";
-import PokedexModal from "./Pokedexmodal.tsx";
+import PokedexModal from "./PokedexModal.tsx";
 
 const Pokedex = () => {
 	const { pokemonData } = usePokemonContext();

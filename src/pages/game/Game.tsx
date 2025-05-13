@@ -1,13 +1,67 @@
-import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import "./Game.css";
-import PokemonList from "../../API/PokemonList";
+import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import Pokedex from "../../components/pokedex/Pokedex";
+import { useEffect } from "react";
+import { usePokemonContext } from "../../context/PokemonContext";
+
+interface NameEntry {
+	name: string;
+	language: { name: string; url: string };
+}
+
+interface TypeEntry {
+	slot: number;
+	type: { name: string; url: string };
+}
+
+const getRandomPokemonIds = () => {
+	const ids = new Set<number>();
+	while (ids.size < 30) {
+		ids.add(Math.floor(Math.random() * 251) + 1);
+	}
+	return Array.from(ids);
+};
 
 function Game() {
+	const { setPokemonData } = usePokemonContext();
+
+	useEffect(() => {
+		const fetchPokemons = async () => {
+			const ids = getRandomPokemonIds();
+
+			const promises = ids.map(async (id) => {
+				const [pokemonRes, speciesRes] = await Promise.all([
+					fetch(`https://pokeapi.co/api/v2/pokemon/${id}`).then((res) =>
+						res.json(),
+					),
+					fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`).then((res) =>
+						res.json(),
+					),
+				]);
+
+				const frenchNameEntry = speciesRes.names.find(
+					(entry: NameEntry) => entry.language.name === "fr",
+				);
+
+				return {
+					id: pokemonRes.id,
+					name: frenchNameEntry?.name || pokemonRes.name,
+					image: pokemonRes.sprites.front_default,
+					weight: pokemonRes.weight,
+					height: pokemonRes.height,
+					types: pokemonRes.types.map((t: TypeEntry) => t.type.name),
+				};
+			});
+
+			const clearData = await Promise.all(promises);
+			setPokemonData(clearData);
+		};
+
+		fetchPokemons();
+	}, [setPokemonData]);
+
 	return (
 		<>
-			<PokemonList />
-
 			<div className="hud_pokedexpatrol">
 				<div className="game_window">
 					<img
