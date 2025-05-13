@@ -32,9 +32,6 @@ function Game() {
 		}
 	};
 
-	const [activeImage, setActiveImage] = useState(false);
-	const handleClick = () => setActiveImage(true);
-
 	return (
 		<>
 			<div className="hud_pokedexpatrol">
@@ -88,12 +85,6 @@ function Game() {
 					</div>
 				</div>
 			</div>
-
-			{activeImage && (
-				<div className="information_box">
-					<p>Information à venir</p>
-				</div>
-			)}
 		</>
 	);
 }
