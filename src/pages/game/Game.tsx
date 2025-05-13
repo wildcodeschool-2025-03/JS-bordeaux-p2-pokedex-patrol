@@ -1,7 +1,7 @@
 import "./Game.css";
-import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
-import Pokedex from "../../components/pokedex/Pokedex";
 import { useEffect } from "react";
+import Pokedex from "../../components/pokedex/Pokedex";
+import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import { usePokemonContext } from "../../context/PokemonContext";
 
 interface NameEntry {
