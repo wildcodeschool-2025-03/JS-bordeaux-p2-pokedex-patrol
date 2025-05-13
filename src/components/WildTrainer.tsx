@@ -1,4 +1,4 @@
-import "./wildTrainer.css";
+import "./WildTrainer.css";
 
 interface Trainer {
 	id: number;
@@ -24,7 +24,11 @@ function WildTrainer({ trainers }: Props) {
 		<>
 			<img src={trainers.portraitImage || trainers.imgTrainer} alt="Trainer" />
 			<div className="chatBox">
-				<img src="src/assets/images/chat_box.svg" alt="chatBox" />
+				<img
+					className="trainerImg"
+					src="src/assets/images/chat_box.svg"
+					alt="chatBox"
+				/>
 				<p className="textOnImage">
 					{trainers.declaredName || trainers.nameTrainer}: <br />
 					Salut je viens de {trainers.declaredRegion || trainers.RegionsTrainer}{" "}
