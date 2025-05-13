@@ -118,7 +118,7 @@ function Game() {
 		};
 
 		fetchPokemons();
-	}, []);
+	}, [setPokemonData]);
 
 	useEffect(() => {
 		setTrainers(getRandomTrainers());
