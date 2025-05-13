@@ -1,11 +1,12 @@
 import { useState } from "react";
-import "./Notebook_carouseloverlay.css";
-interface CarouselOverlayProps {
+import "./Licences.css";
+
+interface CarouselLicences {
 	cardSvgs: string[];
 	cardNames: string[];
 }
 
-function CarouselOverlay({ cardSvgs, cardNames }: CarouselOverlayProps) {
+function CarouselOverlay({ cardSvgs, cardNames }: CarouselLicences) {
 	const [carouselIndex, setCarouselIndex] = useState(0);
 
 	const nextCard = (e: React.MouseEvent) => {

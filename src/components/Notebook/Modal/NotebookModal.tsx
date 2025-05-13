@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import "./Notebook_modal.css";
+import "./NotebookModal.css";
 
 interface ModalProps {
 	children: ReactNode;

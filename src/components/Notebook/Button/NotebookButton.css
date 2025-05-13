@@ -11,11 +11,11 @@
 }
 
 .notebook-button.closed {
-	background-image: url("../../assets/images/interact/notebook_closed.svg");
+	background-image: url("../../../assets/images/interact/notebook_closed.svg");
 }
 
 .notebook-button.open {
-	background-image: url("../../assets/images/verif/notebook_open.svg");
+	background-image: url("../../../assets/images/verif/notebook_open.svg");
 	width: 950px;
 	height: 950px;
 }

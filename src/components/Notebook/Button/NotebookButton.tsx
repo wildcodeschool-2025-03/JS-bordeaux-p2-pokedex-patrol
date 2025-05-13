@@ -1,12 +1,12 @@
-import "./Notebook.css";
+import "./NotebookButton.css";
 
-interface NotebookProps {
+interface Notebook {
 	notebookRef: React.RefObject<HTMLButtonElement>;
 	onClick?: () => void;
 	open?: boolean;
 }
 
-function Notebook({ notebookRef, onClick, open }: NotebookProps) {
+function Notebook({ notebookRef, onClick, open }: Notebook) {
 	return (
 		<button
 			type="button"
