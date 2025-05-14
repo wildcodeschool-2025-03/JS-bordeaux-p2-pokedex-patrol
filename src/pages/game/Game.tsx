@@ -6,8 +6,11 @@ import unysCard from "../../assets/images/verif/trainer_card_unys.svg";
 import Notebook from "../../components/Notebook/Button/NotebookButton";
 import CarouselOverlay from "../../components/Notebook/Licences/Licences";
 import Modal from "../../components/Notebook/Modal/NotebookModal";
+import PokeballTrainer from "../../components/pokeballtrainer/PokeballTrainer";
+import PokemonSprite from "../../components/pokeballtrainer/PokemonSprite";
 import TrainerCardModal from "../../components/trainerCard/trainerCardModal/TrainerCardModal";
 import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
+import type { PokemonData } from "../../context/PokemonContext";
 import "./Game.css";
 import WildTrainer from "../../components/WildTrainer";
 import Pokedex from "../../components/pokedex/Pokedex";
@@ -91,11 +94,15 @@ const cardSvgs = [hoennCard, kantoCard, sinnohCard, unysCard];
 const cardNames = ["Hoenn", "Kanto", "Sinnoh", "Unys"];
 
 function Game() {
+	const [shuffledPokemon, setShuffledPokemon] = useState<PokemonData[]>([]);
+	const [selectedPokemons, setSelectedPokemons] = useState<PokemonData[]>([]);
 	const [showTrainerCard, setShowTrainerCard] = useState(false);
 	const { setPokemonData } = usePokemonContext();
 
 	const [trainers, setTrainers] = useState<TrainerInterface[]>([]);
 	const [currentIndex, setCurrentIndex] = useState(1);
+	const [currentPokemonIndex, setCurrentPokemonIndex] = useState(3);
+
 	const [selectedTrainer, setSelectedTrainer] = useState<JSX.Element | null>(
 		null,
 	);
@@ -134,12 +141,32 @@ function Game() {
 				};
 			});
 
+			const allPokemonData = await Promise.all(promises);
+
+			setPokemonData(allPokemonData);
+
+			const shuffled = [...allPokemonData].sort(() => Math.random() - 0.5);
+			setShuffledPokemon(shuffled);
 			const clearData = await Promise.all(promises);
 			setPokemonData(clearData);
+			setTimeout(() => {
+				setSelectedPokemons(shuffled.slice(0, 3));
+			}, 2000);
 		};
 
 		fetchPokemons();
 	}, [setPokemonData]);
+
+	const getNextPokemonsForTrainer = () => {
+		if (currentPokemonIndex + 3 <= shuffledPokemon.length) {
+			const nextPokemons = shuffledPokemon.slice(
+				currentPokemonIndex,
+				currentPokemonIndex + 3,
+			);
+			setSelectedPokemons(nextPokemons);
+			setCurrentPokemonIndex(currentPokemonIndex + 3);
+		}
+	};
 
 	useEffect(() => {
 		const randomTrainers = getRandomTrainers();
@@ -147,7 +174,7 @@ function Game() {
 
 		const timeout = setTimeout(() => {
 			setSelectedTrainer(<WildTrainer trainers={randomTrainers[0]} />);
-		}, 3000);
+		}, 1500);
 
 		return () => clearTimeout(timeout);
 	}, []);
@@ -169,21 +196,8 @@ function Game() {
 		<>
 			<div className="hud_pokedexpatrol">
 				<div className="game_window">
-					<img
-						id="pkmn1"
-						src="src/assets/images/test_img/test_pkmn1.svg"
-						alt="pkmn1 pour test"
-					/>
-					<img
-						id="pkmn2"
-						src="src/assets/images/test_img/test_pkmn2.svg"
-						alt="pkmn2 pour test"
-					/>
-					<img
-						id="pkmn3"
-						src="src/assets/images/test_img/test_pkmn3.svg"
-						alt="pkmn3 pour test"
-					/>
+					<PokemonSprite selectedPokemons={selectedPokemons} />
+
 					<div id="trainer">{selectedTrainer}</div>
 					<img
 						id="window_sill"
@@ -226,17 +240,17 @@ function Game() {
 					<div className="pokedex_hud">
 						<Pokedex />
 					</div>
+
 					<div className="trainer_check">
 						<TrainerCheck
 							pickWildTrainer={pickWildTrainer}
 							trainer={trainers[currentIndex - 1]}
+							onNextTrainer={getNextPokemonsForTrainer}
 						/>
 					</div>
+
 					<div className="pokeball_trainer">
-						<img
-							src="src/assets/images/test_img/test_pokeball.svg"
-							alt="Ceci est la pokéball du dresseur qui se présente au péage"
-						/>
+						<PokeballTrainer selectedPokemons={selectedPokemons} />
 					</div>
 					<div className="id_trainer">
 						{showTrainerCard ? (

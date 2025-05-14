@@ -1,10 +1,39 @@
 import "./Tutorial.css";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { Link } from "react-router";
 import officer from "../../assets/images/hud/tutorial.svg";
 
+const handleClick = () => {};
+
 export default function Tutorial() {
+	const [isTransitioning, setIsTransitioning] = useState(false);
+	const navigate = useNavigate();
+
+	const startTransition = () => {
+		if (isTransitioning) return;
+		setIsTransitioning(true);
+		setTimeout(() => {
+			navigate("/game");
+		}, 3000);
+	};
+
+	const goBack = () => {
+		if (isTransitioning) return;
+		navigate("/");
+	};
+
 	return (
 		<>
-			<header />
+			<header>
+				<img
+					onClick={handleClick}
+					onKeyDown={handleClick}
+					src="src/assets/images/home/speaker.svg"
+					alt="speaker"
+					className="speaker_img"
+				/>
+			</header>
 			<div className="firstpage-overlay">
 				<div className="tutorial-frame-container">
 					<img
@@ -38,17 +67,29 @@ export default function Tutorial() {
 						</p>
 					</div>
 				</div>
+
+				{isTransitioning && (
+					<div className="transition_overlay">
+						<img
+							src="src/assets/images/home/pika.gif"
+							alt="Transition"
+							className="transition_img"
+						/>
+					</div>
+				)}
+
 				<div className="firstpage-buttons">
-					<a href="/game">
-						<button type="button" className="firstpage-btn">
-							Jouer
-						</button>
-					</a>
-					<a href="/">
-						<button type="button" className="firstpage-btn">
-							Retour
-						</button>
-					</a>
+					<Link to="#" onClick={startTransition} className="firstpage-btn">
+						Jouer
+					</Link>
+					<button
+						type="button"
+						onClick={goBack}
+						className="firstpage-btn"
+						disabled={isTransitioning}
+					>
+						Retour
+					</button>
 				</div>
 			</div>
 			<footer />

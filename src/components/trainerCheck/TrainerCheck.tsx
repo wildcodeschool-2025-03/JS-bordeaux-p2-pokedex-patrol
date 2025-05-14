@@ -14,9 +14,14 @@ interface TrainerInterface {
 interface TrainerCheckProps {
 	pickWildTrainer: () => void;
 	trainer: TrainerInterface;
+	onNextTrainer: () => void;
 }
 
-function TrainerCheck({ pickWildTrainer, trainer }: TrainerCheckProps) {
+function TrainerCheck({
+	onNextTrainer,
+	pickWildTrainer,
+	trainer,
+}: TrainerCheckProps) {
 	const [currentTrainer, setCurrentTrainer] = useState(0);
 	const [score, setScore] = useState(0);
 	const [isGameOver, setIsGameOver] = useState(false);
@@ -47,6 +52,7 @@ function TrainerCheck({ pickWildTrainer, trainer }: TrainerCheckProps) {
 			setIsGameOver(true);
 		} else {
 			setCurrentTrainer((prev) => prev + 1);
+			onNextTrainer();
 		}
 	};
 

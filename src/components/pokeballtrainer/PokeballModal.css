@@ -1,0 +1,45 @@
+.pokeball-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 10;
+}
+
+.pokeball-content {
+	width: 625px;
+	height: 460px;
+	max-width: 80%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgb(43, 197, 158);
+	border: 10px solid #000;
+	border-radius: 5%;
+}
+
+.pokeball-card {
+	width: 600px;
+	height: 100%;
+	background-image: url("src/assets/images/hud/background_pokeball.svg");
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px;
+	margin-left: 25px;
+}
+
+.pokeball-card img {
+	width: 150px;
+}
+
+.pokemon-name {
+	font-size: 1.2rem;
+	margin-bottom: 25px;
+}

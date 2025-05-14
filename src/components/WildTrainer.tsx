@@ -1,18 +1,16 @@
 import "./WildTrainer.css";
 
-interface Trainer {
-	id: number;
-	declaredName: string;
-	cardName: string;
-	declaredRegion: string;
-	cardRegion: string;
-	portraitImage: string;
-	cardPortrait: string;
-	isTrainerCorrupted: boolean;
-}
-
 interface Props {
-	trainers: Trainer;
+	trainers: {
+		id: number;
+		declaredName: string;
+		cardName: string;
+		declaredRegion: string;
+		cardRegion: string;
+		portraitImage: string;
+		cardPortrait: string;
+		isTrainerCorrupted: boolean;
+	};
 }
 
 function WildTrainer({ trainers }: Props) {

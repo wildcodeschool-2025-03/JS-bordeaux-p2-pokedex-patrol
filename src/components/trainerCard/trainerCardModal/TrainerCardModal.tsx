@@ -1,4 +1,5 @@
 import "./TrainerCardModal.css";
+
 interface Trainer {
 	id: number;
 	declaredName: string;

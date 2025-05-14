@@ -73,6 +73,7 @@ body,
 	box-shadow: 0 4px #ffe14b;
 	position: relative;
 	transition: transform 0.1s;
+	text-decoration: none;
 }
 
 .firstpage-btn:after {

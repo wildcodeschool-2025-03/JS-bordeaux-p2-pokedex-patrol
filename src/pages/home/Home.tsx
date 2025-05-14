@@ -12,7 +12,7 @@ function Home() {
 		setIsTransitioning(true);
 		setTimeout(() => {
 			navigate("/game");
-		}, 5000);
+		}, 3000);
 	};
 	return (
 		<>
