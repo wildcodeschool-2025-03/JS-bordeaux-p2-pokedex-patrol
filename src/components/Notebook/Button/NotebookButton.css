@@ -1,6 +1,6 @@
 .notebook-button {
-	width: 100px;
-	height: 100px;
+	width: 150px;
+	height: 150px;
 	border: none;
 	cursor: pointer;
 	background-color: transparent;
@@ -22,4 +22,6 @@
 
 .notebook-button.closed:hover {
 	transform: scale(1.1);
+	filter: drop-shadow(0 0 15px rgba(0, 132, 255, 1))
+		drop-shadow(0 0 30px rgba(0, 132, 255, 0.8));
 }
