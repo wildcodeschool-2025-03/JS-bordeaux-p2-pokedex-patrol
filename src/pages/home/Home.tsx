@@ -1,25 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router";
 import "./Home.css";
 
 function Home() {
 	const [isTransitioning, setIsTransitioning] = useState(false);
 	const navigate = useNavigate();
+	const audioRef = useRef<HTMLAudioElement | null>(null);
 
-	const handleClick = () => {};
+	useEffect(() => {
+		const audio = new Audio("/src/assets/music/home.mp3");
+		audio.loop = true;
+		audio.play();
+		audioRef.current = audio;
+
+		return () => {
+			audio.pause();
+			audio.currentTime = 0;
+		};
+	}, []);
 
 	const startTransition = () => {
 		setIsTransitioning(true);
+
+		if (audioRef.current) {
+			audioRef.current.pause();
+			audioRef.current.currentTime = 0;
+		}
+
 		setTimeout(() => {
 			navigate("/game");
 		}, 3000);
 	};
+
 	return (
 		<>
 			<header>
 				<img
-					onClick={handleClick}
-					onKeyDown={handleClick}
 					src="src/assets/images/home/speaker.svg"
 					alt="speaker"
 					className="speaker_img"
@@ -59,8 +75,13 @@ function Home() {
 					Jouer
 				</Link>
 				<button
-					onClick={() => navigate("/tutorial")}
-					onKeyDown={() => navigate("/tutorial")}
+					onClick={() => {
+						if (audioRef.current) {
+							audioRef.current.pause();
+							audioRef.current.currentTime = 0;
+						}
+						navigate("/tutorial");
+					}}
 					className="btn_home tuto"
 					type="button"
 				>
