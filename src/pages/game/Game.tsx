@@ -25,7 +25,7 @@ const getRandomPokemonIds = () => {
 };
 
 function Game() {
-	const { pokemonData, setPokemonData } = usePokemonContext();
+	const { setPokemonData } = usePokemonContext();
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [shuffledPokemon, setShuffledPokemon] = useState<PokemonData[]>([]);
 	const [selectedPokemons, setSelectedPokemons] = useState<PokemonData[]>([]);
@@ -58,21 +58,18 @@ function Game() {
 				};
 			});
 
-			const clearData = await Promise.all(promises);
-			setPokemonData(clearData);
+			const allPokemonData = await Promise.all(promises);
+
+			setPokemonData(allPokemonData);
+
+			const shuffled = [...allPokemonData].sort(() => Math.random() - 0.5);
+			setShuffledPokemon(shuffled);
+			setSelectedPokemons(shuffled.slice(0, 3));
+			setCurrentIndex(3);
 		};
 
 		fetchPokemons();
 	}, [setPokemonData]);
-
-	useEffect(() => {
-		if (pokemonData.length >= 30) {
-			const shuffled = [...pokemonData].sort(() => 0.5 - Math.random());
-			setShuffledPokemon(shuffled);
-			setSelectedPokemons(shuffled.slice(0, 3));
-			setCurrentIndex(3);
-		}
-	}, [pokemonData]);
 
 	const getNextPokemonsForTrainer = () => {
 		if (currentIndex + 3 <= shuffledPokemon.length) {
