@@ -3,13 +3,10 @@ import { Link, useNavigate } from "react-router";
 import "./Home.css";
 
 function Home() {
-	const [activeImage, setActiveImage] = useState(false);
 	const [isTransitioning, setIsTransitioning] = useState(false);
 	const navigate = useNavigate();
 
-	const handleClick = () => {
-		setActiveImage(true);
-	};
+	const handleClick = () => {};
 
 	const startTransition = () => {
 		setIsTransitioning(true);
@@ -62,19 +59,14 @@ function Home() {
 					Jouer
 				</Link>
 				<button
-					onClick={handleClick}
-					onKeyDown={handleClick}
+					onClick={() => navigate("/tutorial")}
+					onKeyDown={() => navigate("/tutorial")}
 					className="btn_home tuto"
 					type="button"
 				>
 					Tutoriel
 				</button>
 			</div>
-			{activeImage && (
-				<div className="information_box">
-					<p>Information à venir</p>
-				</div>
-			)}
 			<footer />
 		</>
 	);
