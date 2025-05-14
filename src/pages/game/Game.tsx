@@ -1,6 +1,3 @@
-import PokeballTrainer from "../../components/pokeballtrainer/PokeballTrainer";
-import PokemonSprite from "../../components/pokeballtrainer/PokemonSprite";
-import type { PokemonData } from "../../context/PokemonContext";
 import { useEffect, useRef, useState } from "react";
 import hoennCard from "../../assets/images/verif/trainer_card_hoenn.svg";
 import kantoCard from "../../assets/images/verif/trainer_card_kanto.svg";
@@ -9,8 +6,11 @@ import unysCard from "../../assets/images/verif/trainer_card_unys.svg";
 import Notebook from "../../components/Notebook/Button/NotebookButton";
 import CarouselOverlay from "../../components/Notebook/Licences/Licences";
 import Modal from "../../components/Notebook/Modal/NotebookModal";
+import PokeballTrainer from "../../components/pokeballtrainer/PokeballTrainer";
+import PokemonSprite from "../../components/pokeballtrainer/PokemonSprite";
 import TrainerCardModal from "../../components/trainerCard/trainerCardModal/TrainerCardModal";
 import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
+import type { PokemonData } from "../../context/PokemonContext";
 import "./Game.css";
 import WildTrainer from "../../components/WildTrainer";
 import Pokedex from "../../components/pokedex/Pokedex";

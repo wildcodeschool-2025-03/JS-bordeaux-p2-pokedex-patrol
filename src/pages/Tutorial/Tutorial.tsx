@@ -1,8 +1,8 @@
 import "./Tutorial.css";
-import officer from "../../assets/images/hud/tutorial.svg";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
+import officer from "../../assets/images/hud/tutorial.svg";
 
 const handleClick = () => {};
 
