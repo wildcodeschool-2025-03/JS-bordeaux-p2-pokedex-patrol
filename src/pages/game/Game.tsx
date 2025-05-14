@@ -17,6 +17,7 @@ import Pokedex from "../../components/pokedex/Pokedex";
 import TrainerCardButton from "../../components/trainerCard/trainerCardButton/TrainerCardButton";
 import { usePokemonContext } from "../../context/PokemonContext";
 import trainersData from "../../db/trainers.json";
+import Jenny from "../../components/Jenny/Jenny";
 
 interface NameEntry {
 	name: string;
@@ -208,6 +209,9 @@ function Game() {
 				</div>
 
 				<div className="game_desk">
+					<div className="Jenny">
+						<Jenny />
+					</div>
 					<div className="official_witness">
 						<div className="game-container">
 							{!isNotebookOpen && (
