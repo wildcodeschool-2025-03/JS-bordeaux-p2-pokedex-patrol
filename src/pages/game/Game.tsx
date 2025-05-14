@@ -12,12 +12,12 @@ import TrainerCardModal from "../../components/trainerCard/trainerCardModal/Trai
 import TrainerCheck from "../../components/trainerCheck/TrainerCheck";
 import type { PokemonData } from "../../context/PokemonContext";
 import "./Game.css";
+import Jenny from "../../components/Jenny/Jenny";
 import WildTrainer from "../../components/WildTrainer";
 import Pokedex from "../../components/pokedex/Pokedex";
 import TrainerCardButton from "../../components/trainerCard/trainerCardButton/TrainerCardButton";
 import { usePokemonContext } from "../../context/PokemonContext";
 import trainersData from "../../db/trainers.json";
-import Jenny from "../../components/Jenny/Jenny";
 
 interface NameEntry {
 	name: string;

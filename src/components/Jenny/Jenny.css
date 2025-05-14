@@ -11,11 +11,9 @@
 }
 
 .jenny-content {
-	
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
 }
 
 .jenny-card {
@@ -27,5 +25,3 @@
 	justify-content: center;
 	align-items: center;
 }
-
-

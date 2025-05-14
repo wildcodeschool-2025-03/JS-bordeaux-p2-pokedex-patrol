@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./ResultScreen.css";
 
 interface ResultScreenProps {
@@ -13,6 +14,11 @@ function ResultScreen({
 	nbrLegitimateTrainer,
 	nbrLegitimateTrainerDenied,
 }: ResultScreenProps) {
+	useEffect(() => {
+		const winSound = new Audio("src/assets/music/pokemonwin.mp3");
+		winSound.play();
+	}, []);
+
 	return (
 		<div className="modal_overlay">
 			<section id="resultScreen">
