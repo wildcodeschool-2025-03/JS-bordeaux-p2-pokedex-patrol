@@ -32,20 +32,22 @@
 }
 #trainer {
 	max-width: 60%;
-	grid-area: 1 / 5 / 2 / 8;
+	grid-area: 1 / 6 / 2 / 8;
 }
 #window_sill {
 	grid-area: 1 / 1 / 2 / 8;
 	width: 100%;
+	z-index: 1;
 }
 
 #counter {
 	grid-area: 1 / 2 / 2 / 4;
 	align-self: flex-start;
 	justify-self: center;
-	margin-top: 2.2em;
+	margin-top: 1.8em;
 	margin-left: 1.3em;
 	font-size: var(--font-h2-size);
+	z-index: 20;
 }
 
 .game_desk {
