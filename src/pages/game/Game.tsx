@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import hoennCard from "../../assets/images/verif/trainer_card_hoenn.svg";
 import kantoCard from "../../assets/images/verif/trainer_card_kanto.svg";
 import sinnohCard from "../../assets/images/verif/trainer_card_sinnoh.svg";
@@ -115,6 +115,41 @@ function Game() {
 	};
 
 	useEffect(() => {
+		if (window.homeMusic) {
+			window.homeMusic.pause();
+			window.homeMusic.currentTime = 0;
+		}
+
+		if (!window.jadeMusic) {
+			const music = new Audio("src/assets/music/jade.mp3");
+			music.loop = true;
+			window.jadeMusic = music;
+		}
+		window.jadeMusic.play();
+
+		return () => {
+			window.jadeMusic?.pause();
+			window.jadeMusic.currentTime = 0;
+		};
+	}, []);
+
+	useEffect(() => {
+		if (currentIndex >= 10 && window.jadeMusic) {
+			const audio = window.jadeMusic;
+
+			const fadeOut = setInterval(() => {
+				if (audio.volume > 0.05) {
+					audio.volume -= 0.05;
+				} else {
+					audio.volume = 0;
+					audio.pause();
+					clearInterval(fadeOut);
+				}
+			}, 100);
+		}
+	}, [currentIndex]);
+
+	useEffect(() => {
 		const fetchPokemons = async () => {
 			const ids = getRandomPokemonIds();
 
@@ -148,8 +183,6 @@ function Game() {
 
 			const shuffled = [...allPokemonData].sort(() => Math.random() - 0.5);
 			setShuffledPokemon(shuffled);
-			const clearData = await Promise.all(promises);
-			setPokemonData(clearData);
 			setTimeout(() => {
 				setSelectedPokemons(shuffled.slice(0, 3));
 			}, 2000);
