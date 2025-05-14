@@ -27,10 +27,12 @@ interface TypeEntry {
 
 interface TrainerInterface {
 	id: number;
-	nameTrainer: string;
-	imgTrainer: string;
-	imgTrainerCrop: string;
-	RegionsTrainer: string;
+	declaredName: string;
+	cardName: string;
+	declaredRegion: string;
+	cardRegion: string;
+	portraitImage: string;
+	cardPortrait: string;
 	isTrainerCorrupted: boolean;
 }
 
@@ -55,7 +57,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 
 type CorruptibleTrainerKey = keyof Pick<
 	TrainerInterface,
-	"nameTrainer" | "imgTrainer" | "imgTrainerCrop" | "RegionsTrainer"
+	"cardName" | "portraitImage" | "cardRegion" | "declaredRegion"
 >;
 
 const getRandomTrainers = (trainerCount = 10): TrainerInterface[] => {
@@ -67,10 +69,10 @@ const getRandomTrainers = (trainerCount = 10): TrainerInterface[] => {
 	]).slice(0, numberOfFakeTrainers);
 
 	const propertiesToCorrupt = shuffleArray<CorruptibleTrainerKey>([
-		"nameTrainer",
-		"imgTrainer",
-		"imgTrainerCrop",
-		"RegionsTrainer",
+		"cardName",
+		"portraitImage",
+		"cardRegion",
+		"declaredRegion",
 	]).slice(0, numberOfFakeTrainers);
 
 	for (let i = 0; i < indicesToCorrupt.length; i++) {
@@ -93,22 +95,17 @@ function Game() {
 	const { setPokemonData } = usePokemonContext();
 
 	const [trainers, setTrainers] = useState<TrainerInterface[]>([]);
+	const [currentIndex, setCurrentIndex] = useState(1);
 	const [selectedTrainer, setSelectedTrainer] = useState<JSX.Element | null>(
 		null,
 	);
 	const [isNotebookOpen, setIsNotebookOpen] = useState(false);
 	const notebookRef = useRef<HTMLButtonElement>(null);
-	const [currentIndex, setCurrentIndex] = useState(0);
-	const [currentTrainer, setCurrentTrainer] = useState(0);
-	const [totalTrainers, setTotalTrainers] = useState(0);
 
 	const toggleTrainerCard = () => {
 		setShowTrainerCard(!showTrainerCard);
 	};
 
-	const handleNext = () => {
-		setCurrentIndex((prevIndex) => prevIndex + 1);
-	};
 	useEffect(() => {
 		const fetchPokemons = async () => {
 			const ids = getRandomPokemonIds();
@@ -145,7 +142,14 @@ function Game() {
 	}, [setPokemonData]);
 
 	useEffect(() => {
-		setTrainers(getRandomTrainers());
+		const randomTrainers = getRandomTrainers();
+		setTrainers(randomTrainers);
+
+		const timeout = setTimeout(() => {
+			setSelectedTrainer(<WildTrainer trainers={randomTrainers[0]} />);
+		}, 3000);
+
+		return () => clearTimeout(timeout);
 	}, []);
 
 	const pickWildTrainer = () => {
@@ -180,19 +184,13 @@ function Game() {
 						src="src/assets/images/test_img/test_pkmn3.svg"
 						alt="pkmn3 pour test"
 					/>
-					<img
-						id="trainer"
-						src="src/assets/images/test_img/test_trainer.svg"
-						alt="trainer pour test"
-					/>
+					<div id="trainer">{selectedTrainer}</div>
 					<img
 						id="window_sill"
 						src="src/assets/images/hud/game_window.svg"
 						alt="fenêtre de jeu"
 					/>
-					<p id="counter">
-						{currentTrainer + 1} / {totalTrainers}
-					</p>
+					<p id="counter">{currentIndex} / 10</p>
 				</div>
 
 				<div className="game_desk">
@@ -230,11 +228,8 @@ function Game() {
 					</div>
 					<div className="trainer_check">
 						<TrainerCheck
-							currentTrainer={currentTrainer}
-							setCurrentTrainer={setCurrentTrainer}
-							onApprove={() => handleNext(true)}
-							onDeny={() => handleNext(false)}
-							onSetTotalTrainers={setTotalTrainers}
+							pickWildTrainer={pickWildTrainer}
+							trainer={trainers[currentIndex - 1]}
 						/>
 					</div>
 					<div className="pokeball_trainer">
@@ -247,20 +242,13 @@ function Game() {
 						{showTrainerCard ? (
 							<TrainerCardModal
 								onToggleTrainerCard={toggleTrainerCard}
-								currentIndex={currentIndex}
-								handleNext={handleNext}
+								trainer={trainers[currentIndex - 1]}
 							/>
 						) : (
 							<TrainerCardButton onToggleTrainerCard={toggleTrainerCard} />
 						)}
 					</div>
 				</div>
-			</div>
-			<div>
-				<button type="button" onClick={pickWildTrainer}>
-					Prochain dresseur !
-				</button>
-				<div>{selectedTrainer}</div>
 			</div>
 		</>
 	);

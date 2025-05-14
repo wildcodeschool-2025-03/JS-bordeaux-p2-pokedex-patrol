@@ -2,17 +2,13 @@ import "./WildTrainer.css";
 
 interface Trainer {
 	id: number;
-	nameTrainer: string;
-	imgTrainer: string;
-	imgTrainerCrop: string;
-	RegionsTrainer: string;
+	declaredName: string;
+	cardName: string;
+	declaredRegion: string;
+	cardRegion: string;
+	portraitImage: string;
+	cardPortrait: string;
 	isTrainerCorrupted: boolean;
-
-	declaredName?: string;
-	declaredRegion?: string;
-	portraitImage?: string;
-	cardName?: string;
-	cardRegion?: string;
 }
 
 interface Props {
@@ -21,8 +17,8 @@ interface Props {
 
 function WildTrainer({ trainers }: Props) {
 	return (
-		<>
-			<img src={trainers.portraitImage || trainers.imgTrainer} alt="Trainer" />
+		<div className="wildTrainer">
+			<img className="Trainer" src={trainers.portraitImage} alt="Trainer" />
 			<div className="chatBox">
 				<img
 					className="trainerImg"
@@ -30,12 +26,11 @@ function WildTrainer({ trainers }: Props) {
 					alt="chatBox"
 				/>
 				<p className="textOnImage">
-					{trainers.declaredName || trainers.nameTrainer}: <br />
-					Salut je viens de {trainers.declaredRegion || trainers.RegionsTrainer}{" "}
-					!
+					{trainers.declaredName}: <br />
+					Salut je viens de {trainers.declaredRegion} !
 				</p>
 			</div>
-		</>
+		</div>
 	);
 }
 

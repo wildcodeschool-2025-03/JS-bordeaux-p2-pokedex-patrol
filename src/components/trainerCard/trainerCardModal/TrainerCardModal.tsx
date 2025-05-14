@@ -1,8 +1,23 @@
 import "./TrainerCardModal.css";
-import trainers from "../../../db/trainers.json";
+interface Trainer {
+	id: number;
+	declaredName: string;
+	cardName: string;
+	declaredRegion: string;
+	cardRegion: string;
+	portraitImage: string;
+	cardPortrait: string;
+	isTrainerCorrupted: boolean;
+}
+interface TrainerCardModalInterface {
+	trainer: Trainer;
+	onToggleTrainerCard: () => void;
+}
 
-function TrainerCardModal({ onToggleTrainerCard, currentIndex }) {
-	const currentTrainer = trainers[currentIndex];
+function TrainerCardModal({
+	onToggleTrainerCard,
+	trainer,
+}: TrainerCardModalInterface) {
 	return (
 		<div
 			className="trainer-card"
@@ -10,11 +25,11 @@ function TrainerCardModal({ onToggleTrainerCard, currentIndex }) {
 			onKeyDown={onToggleTrainerCard}
 		>
 			<div className="modal_overlay">
-				<div className={`trainer_card region_${currentTrainer.cardRegion}`}>
-					<h2 className="trainer_name">{currentTrainer.declaredName}</h2>
+				<div className={`trainer_card region_${trainer.cardRegion}`}>
+					<h2 className="trainer_name">{trainer.cardName}</h2>
 					<img
 						className="trainer_image"
-						src={currentTrainer.portraitImage}
+						src={trainer.cardPortrait}
 						alt="le dresseur"
 					/>
 				</div>
