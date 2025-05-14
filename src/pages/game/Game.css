@@ -36,11 +36,22 @@
 }
 #trainer {
 	max-width: 60%;
-	grid-area: 1 / 5 / 2 / 8;
+	grid-area: 1 / 6 / 2 / 8;
 }
 #window_sill {
 	grid-area: 1 / 1 / 2 / 8;
 	width: 100%;
+	z-index: 1;
+}
+
+#counter {
+	grid-area: 1 / 2 / 2 / 4;
+	align-self: flex-start;
+	justify-self: center;
+	margin-top: 2.7em;
+	margin-left: 1.9em;
+	font-size: var(--font-h2-size);
+	z-index: 20;
 }
 
 .game_desk {
@@ -55,7 +66,7 @@
 	display: grid;
 	grid-template-columns: repeat(6, 1fr);
 	grid-template-rows: repeat(2, 1fr);
-	grid-column-gap: 20px;
+	grid-column-gap: 10px;
 	grid-row-gap: 0px;
 }
 
@@ -75,8 +86,7 @@
 	grid-area: 2 / 2 / 3 / 3;
 }
 
-.pokedex {
-	padding-bottom: 20px;
+.pokedex_hud {
 	grid-area: 2 / 3 / 3 / 4;
 }
 
@@ -95,22 +105,4 @@
 	padding-top: 60px;
 	padding-right: 80px;
 	grid-area: 2 / 6 / 3 / 7;
-}
-
-.information_box {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: white;
-	border: 2px solid black;
-	padding: 20px;
-	text-align: center;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.information_box p {
-	margin: 0;
-	font-size: 16px;
-	color: black;
 }
