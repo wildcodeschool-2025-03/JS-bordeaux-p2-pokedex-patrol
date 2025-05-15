@@ -1,14 +1,28 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+	--main-font: "PokemonClassic";
+	font-family: var(--main-font), Inter, system-ui, Avenir, Helvetica, Arial;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+	--font-color: black;
+	--background-color: black;
+	--btn-approve-color: #01cc00;
+	--btn-deny-color: #fe2708;
+	--btn-home-color: #365fac;
+	--btn-font-color: #ffcc01;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	--font-h1-size: 30px;
+	--font-h2-size: 28px;
+	--font-p-size: 22px;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+@font-face {
+	font-family: "PokemonClassic";
+	src: url("./assets/font/PokemonClassic.ttf");
+	font-weight: normal;
+	font-style: normal;
 }

@@ -1,6 +1,14 @@
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router";
+import { PokemonProvider } from "./context/PokemonContext.tsx";
+import router from "./router.tsx";
 
-createRoot(document.getElementById('root') || document.body)
-.render(<App />);
+const rootElement = document.getElementById("root");
+
+if (rootElement != null) {
+	ReactDOM.createRoot(rootElement).render(
+		<PokemonProvider>
+			<RouterProvider router={router} />
+		</PokemonProvider>,
+	);
+}

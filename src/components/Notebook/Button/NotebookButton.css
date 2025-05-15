@@ -1,0 +1,27 @@
+.notebook-button {
+	width: 150px;
+	height: 150px;
+	border: none;
+	cursor: pointer;
+	background-color: transparent;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	transition: transform 0.3s ease;
+}
+
+.notebook-button.closed {
+	background-image: url("../../../assets/images/interact/notebook_closed.svg");
+}
+
+.notebook-button.open {
+	background-image: url("../../../assets/images/verif/notebook_open.svg");
+	width: 950px;
+	height: 950px;
+}
+
+.notebook-button.closed:hover {
+	transform: scale(1.1);
+	filter: drop-shadow(0 0 15px rgba(0, 132, 255, 1))
+		drop-shadow(0 0 30px rgba(0, 132, 255, 0.8));
+}
