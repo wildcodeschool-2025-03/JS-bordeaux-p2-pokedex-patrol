@@ -1,18 +1,43 @@
-import "./Tutorial.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
 import officer from "../../assets/images/hud/tutorial.svg";
 
-const handleClick = () => {};
-
-export default function Tutorial() {
+const Tutorial = () => {
 	const [isTransitioning, setIsTransitioning] = useState(false);
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (!window.homeMusic) {
+			const audio = new Audio("/src/assets/music/home.mp3");
+			audio.loop = true;
+			window.homeMusic = audio;
+		}
+
+		window.homeMusic?.play();
+
+		return () => {};
+	}, []);
 
 	const startTransition = () => {
 		if (isTransitioning) return;
 		setIsTransitioning(true);
+
+		if (window.homeMusic) {
+			const fadeOut = setInterval(() => {
+				if (window.homeMusic && window.homeMusic.volume > 0.05) {
+					window.homeMusic.volume -= 0.05;
+				} else {
+					clearInterval(fadeOut);
+					if (window.homeMusic) {
+						window.homeMusic.pause();
+						window.homeMusic.volume = 1;
+						window.homeMusic.currentTime = 0;
+					}
+				}
+			}, 100);
+		}
+
 		setTimeout(() => {
 			navigate("/game");
 		}, 3000);
@@ -27,11 +52,20 @@ export default function Tutorial() {
 		<>
 			<header>
 				<img
-					onClick={handleClick}
-					onKeyDown={handleClick}
 					src="src/assets/images/home/speaker.svg"
 					alt="speaker"
 					className="speaker_img"
+					onKeyDown={(e) => e.key === "b"}
+					onClick={() => {
+						if (window.homeMusic) {
+							if (window.homeMusic.paused) {
+								window.homeMusic.play();
+							} else {
+								window.homeMusic.pause();
+								window.homeMusic.currentTime = 0;
+							}
+						}
+					}}
 				/>
 			</header>
 			<div className="firstpage-overlay">
@@ -44,26 +78,26 @@ export default function Tutorial() {
 					<div className="firstpage-textbox">
 						<p>
 							Bienvenue, Agent. Ici, c'est pas la Ligue Pokémon... C'est la
-							vraie vie.
+							vraie vie #ThugLife
 							<br />
 							<br />
-							Tu viens d'être assigné au contrôle des frontières régionales.
+							Tu viens d'être assigné au contrôle des frontières régionales !
 							<br />
 							<br />
 							Ta mission ? Protéger Jade de toute entrée suspecte.
 							<br />
 							<br />
-							Les Dresseurs vont défiler. À toi de vérifier leurs papiers, leur
-							badge, leurs Pokémon... et surtout, de repérer les failles.
+							Les Dresseurs vont défiler. À toi de vérifier leurs papiers, leurs
+							badges, leurs Pokémon...
 							<br />
 							<br />
-							Certains essaieront de tricher. <br />
+							Certains essaieront de tricher ! <br />
 							<br />
 							Faux noms. Pokémon illégaux. <br />
 							<br />
 							Types interdits. Falsifications.
 							<br />
-							<br />À toi d'être vigilant.
+							<br />À toi d'être vigilant !
 						</p>
 					</div>
 				</div>
@@ -95,4 +129,6 @@ export default function Tutorial() {
 			<footer />
 		</>
 	);
-}
+};
+
+export default Tutorial;

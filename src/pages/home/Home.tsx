@@ -1,35 +1,48 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import "./Home.css";
 
 function Home() {
 	const [isTransitioning, setIsTransitioning] = useState(false);
 	const navigate = useNavigate();
-	const audioRef = useRef<HTMLAudioElement | null>(null);
 
 	useEffect(() => {
-		const audio = new Audio("/src/assets/music/home.mp3");
-		audio.loop = true;
-		audio.play();
-		audioRef.current = audio;
+		if (!window.homeMusic) {
+			const audio = new Audio("/src/assets/music/home.mp3");
+			audio.loop = true;
+			window.homeMusic = audio;
+		}
 
-		return () => {
-			audio.pause();
-			audio.currentTime = 0;
-		};
+		window.homeMusic?.play();
+
+		return () => {};
 	}, []);
 
 	const startTransition = () => {
 		setIsTransitioning(true);
 
-		if (audioRef.current) {
-			audioRef.current.pause();
-			audioRef.current.currentTime = 0;
+		if (window.homeMusic) {
+			const fadeOut = setInterval(() => {
+				if (window.homeMusic && window.homeMusic.volume > 0.05) {
+					window.homeMusic.volume -= 0.05;
+				} else {
+					clearInterval(fadeOut);
+					if (window.homeMusic) {
+						window.homeMusic.pause();
+						window.homeMusic.volume = 1;
+						window.homeMusic.currentTime = 0;
+					}
+				}
+			}, 100);
 		}
 
 		setTimeout(() => {
 			navigate("/game");
 		}, 3000);
+	};
+
+	const handleTutoClick = () => {
+		navigate("/tutorial");
 	};
 
 	return (
@@ -39,6 +52,17 @@ function Home() {
 					src="src/assets/images/home/speaker.svg"
 					alt="speaker"
 					className="speaker_img"
+					onKeyDown={(e) => e.key === "b"}
+					onClick={() => {
+						if (window.homeMusic) {
+							if (window.homeMusic.paused) {
+								window.homeMusic.play();
+							} else {
+								window.homeMusic.pause();
+								window.homeMusic.currentTime = 0;
+							}
+						}
+					}}
 				/>
 			</header>
 			<div className="home">
@@ -75,13 +99,7 @@ function Home() {
 					Jouer
 				</Link>
 				<button
-					onClick={() => {
-						if (audioRef.current) {
-							audioRef.current.pause();
-							audioRef.current.currentTime = 0;
-						}
-						navigate("/tutorial");
-					}}
+					onClick={handleTutoClick}
 					className="btn_home tuto"
 					type="button"
 				>
